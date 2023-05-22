@@ -1,0 +1,13 @@
+export { default as Recipes } from "./Recipes";
+export { default as ProductCard } from "./ProductCard";
+export { default as PopularProducts } from "./PopularProducts";
+export { default as Navbar } from "./Navbar";
+export { default as MainProduct } from "./MainProduct";
+export { default as InfoBanner } from "./InfoBanner";
+export { default as HeroBanner } from "./HeroBanner";
+export { default as Footer } from "./Footer";
+export { default as BrandReview } from "./BrandReview";
+// export { default as CustomersReview } from "./CustomersReview";
+export { default as BlogCard } from "./BlogCard";
+export { default as BlogArticles } from "./BlogArticles";
+export { default as Benefits } from "./Benefits";
