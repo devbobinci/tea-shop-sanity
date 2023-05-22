@@ -10,9 +10,9 @@ export default function Navbar() {
   const { openCart, cartQuantity } = useShoppingCart();
 
   return (
-    <nav className="left-0 top-0 z-10 w-full bg-white shadow-md xl:fixed">
-      <div className="mx-auto max-w-7xl">
-        <div className="mx-auto flex items-center justify-between bg-white px-4 py-6  md:px-6 xl:px-0">
+    <nav className="fixed left-0 top-0 z-10 w-full bg-white shadow-md">
+      <div className="mx-auto max-w-7xl ">
+        <div className="mx-auto flex items-center justify-between bg-white px-4 py-4 md:px-6 lg:py-6 xl:px-0">
           <Link href="/">
             <Image
               src="/images/logo-color.png"
@@ -38,7 +38,7 @@ export default function Navbar() {
               Get Started <BsChevronRight />
             </button>
             <div onClick={openCart} className="relative cursor-pointer">
-              <AiOutlineShoppingCart className="h-10 w-10 rounded-full border border-my-yellow p-2.5 text-my-yellow" />
+              <AiOutlineShoppingCart className="h-10 w-10 rounded-full border border-my-yellow p-2.5 text-my-yellow hover:bg-my-yellow hover:text-white" />
               {cartQuantity >= 1 && (
                 <div className="absolute -bottom-2 -left-2 flex h-6 w-6 items-center justify-center rounded-full bg-my-red text-xs text-white">
                   {cartQuantity}

@@ -1,11 +1,10 @@
-import { getProducts } from "@/lib/sanity-db";
-import { useEffect, useState } from "react";
-import { useShoppingCart } from "../context/StateContext";
 import ProductCard from "./ProductCard";
 
-export default async function PopularProducts() {
-  const products = await getProducts();
+type Props = {
+  products: Product[];
+};
 
+export default async function PopularProducts({ products }: Props) {
   return (
     <div className="mx-auto mt-12 max-w-7xl px-4 md:px-6 xl:px-0">
       <div className="flex justify-between py-2">

@@ -3,9 +3,12 @@
 import product from "@/schemas/product";
 import Image from "next/image";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 import urlFor from "../../lib/urlFor";
 import { useShoppingCart } from "../context/StateContext";
+import { useState } from "react";
+import { BsCartCheck } from "react-icons/bs";
 
 type Props = {
   product: Product;
@@ -26,7 +29,13 @@ export default function ProductCard({
   },
   product,
 }: Props) {
-  const { increaseCartQuantity } = useShoppingCart();
+  const { increaseCartQuantity, getItemQuantity, cartItems } =
+    useShoppingCart();
+
+  const [inCart, setInCart] = useState(0);
+
+  const productInCart = cartItems.find((item) => item.id === inCart);
+  const quantity = getItemQuantity(_id);
 
   const discount = 100 - Number((newPrice / price).toFixed(2).slice(2));
 
@@ -47,7 +56,7 @@ export default function ProductCard({
             </span>
           )}
         </div>
-        <div className="rounded-md bg-white p-4 pb-0">
+        <div className="rounded-md bg-white p-4">
           <div className="flex items-center justify-between">
             <h5 className="w-fit rounded-sm bg-my-beige/10 px-2 py-1 text-xs font-semibold uppercase text-my-beige">
               {category}
@@ -68,19 +77,20 @@ export default function ProductCard({
           </div>
           {/* Rozmiary paczek */}
           <div className="flex gap-1">
-            {packageSize.map((size) => (
-              <div
-                key={size}
-                className="cursor-pointer rounded-md border border-my-gray/30 bg-white px-2 py-1 text-sm font-semibold text-my-gray hover:border-my-d-gray hover:text-my-d-gray"
-              >
-                {size} grams
-              </div>
-            ))}
+            {packageSize &&
+              packageSize.map((size) => (
+                <div
+                  key={size}
+                  className="cursor-pointer rounded-md border border-my-gray/30 bg-white px-2 py-1 text-sm font-semibold text-my-gray hover:border-my-d-gray hover:text-my-d-gray"
+                >
+                  {size} grams
+                </div>
+              ))}
           </div>
         </div>
       </Link>
       {/* Cena */}
-      <div className="mt-6 flex justify-between border-t-2 border-my-gray/20 p-4">
+      <div className="flex justify-between rounded-b-md border-t-2 border-my-gray/20 bg-white p-4 py-4">
         <h4 className="text-lg font-semibold text-my-d-gray">
           {newPrice ? newPrice : price}zł{" "}
           {newPrice && (
@@ -91,14 +101,25 @@ export default function ProductCard({
         </h4>
         {availability ? (
           <button
-            onClick={() => increaseCartQuantity(_id, product)}
+            onClick={() => {
+              increaseCartQuantity(_id, product);
+              toast.success(`${product?.title} dodano do koszyka`);
+              setInCart(_id);
+            }}
             className={`text-xs font-bold uppercase md:text-xs ${
               availability
                 ? "text-my-beige"
                 : "pointer-events-none cursor-not-allowed text-my-gray"
             }`}
           >
-            Add to cart
+            {productInCart ? (
+              <span className="inline-flex items-center gap-1">
+                W koszyku {`(${quantity})`}{" "}
+                <BsCartCheck className="text-xl text-my-beige" />
+              </span>
+            ) : (
+              "Dodaj do koszyka"
+            )}
           </button>
         ) : (
           <button

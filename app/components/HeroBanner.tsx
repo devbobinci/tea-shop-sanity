@@ -2,14 +2,15 @@ import Image from "next/image";
 import { BsChevronRight } from "react-icons/bs";
 import { BiPlay } from "react-icons/bi";
 
-import { getBannerImage } from "@/lib/sanity-db";
 import urlFor from "@/lib/urlFor";
 
-export default async function HeroBanner() {
-  const bannerImage = await getBannerImage();
+type Props = {
+  bannerImage: Product;
+};
 
+export default async function HeroBanner({ bannerImage }: Props) {
   return (
-    <div className="h-[80vh] max-h-[600px] w-full bg-gradient-to-tr from-[#e2ad78] to-[#f4ca92] pt-5">
+    <div className="mt-14 h-[80vh] max-h-[600px] w-full bg-gradient-to-tr from-[#e2ad78] to-[#f4ca92] pt-5">
       {/* outer div */}
       <div className="mx-auto flex h-full max-w-7xl flex-col items-center justify-center px-4 md:flex-row md:items-center md:justify-between md:px-6 xl:px-0">
         {/* text div */}
@@ -40,11 +41,11 @@ export default async function HeroBanner() {
           style={{ backgroundImage: `url(/images/podstawka.png)` }}
         >
           <Image
-            src={urlFor(bannerImage[0]?.image?.asset).url()!}
+            src={urlFor(bannerImage?.mainImage?.asset).url()!}
             width={600}
             height={800}
             alt="Tea"
-            className="absolute bottom-8 left-3 h-2/3 w-full object-contain md:bottom-12 md:left-6 md:h-1/3 lg:bottom-12 lg:h-2/3"
+            className="absolute bottom-[2vh] left-[1vh] h-2/3 w-full object-contain md:bottom-[2vh] md:left-[2vh] md:h-1/2 lg:h-2/3 xl:bottom-[3vh] xl:left-[3vh]"
           />
         </div>
       </div>

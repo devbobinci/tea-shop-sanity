@@ -11,35 +11,32 @@ export default function BlogCard({ post, big }: Props) {
   return (
     <Link
       href={`/post/${post?.slug?.current}`}
-      className={`flex flex-col md:flex-row justify-between shadow-md bg-white rounded-xl group ${
-        big && "lg:flex-col"
+      className={`group flex flex-col justify-between rounded-xl bg-white shadow-md md:flex-row ${
+        big && "xl:h-full xl:flex-col"
       }`}
     >
       <div
-        className={`w-full md:w-1/2  rounded-xl ${
-          big ? "h-52 lg:w-full lg:h-80" : "h-60"
+        className={`w-full rounded-xl md:w-2/5 ${
+          big ? "xl:h-full xl:w-full" : "h-64"
         }`}
-        // style={{
-        //   backgroundImage: `url(${urlFor(post?.image?.asset).url()!})`,
-        // }}
       >
         <Image
           src={urlFor(post?.image?.asset).url()!}
           height={200}
           width={300}
           alt={post?.title}
-          className={`object-cover w-full h-full ${
+          className={`h-full w-full object-cover object-center ${
             big
-              ? "rounded-l-xl lg:rounded-t-xl lg:rounded-bl-none"
-              : "rounded-l-xl lg:rounded-t-xl lg:rounded-tr-none"
+              ? "rounded-t-xl rounded-bl-none md:rounded-bl-xl md:rounded-tr-none xl:h-full xl:rounded-bl-none xl:rounded-tr-xl"
+              : "rounded-t-xl rounded-bl-none md:rounded-bl-xl md:rounded-tr-none xl:rounded-t-xl xl:rounded-tr-none"
           }
           `}
         />
       </div>
 
-      <div className={`p-4 lg:w-1/2 ${big && "lg:w-full"}`}>
-        <h3 className="font-semibold text-lg">{post?.title}</h3>
-        <p className="text-my-m-gray text-sm py-4">{post?.description}</p>
+      <div className={`p-4 md:w-3/5 ${big && "xl:w-full"}`}>
+        <h3 className="text-lg font-semibold">{post?.title}</h3>
+        <p className="py-4 text-sm text-my-m-gray">{post?.description}</p>
         <button className="text-my-beige group-hover:underline">
           Read More
         </button>

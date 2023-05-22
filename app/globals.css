@@ -3,3 +3,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.remove-item {
+  transform: translateY(-50%);
+  right: 1rem;
+  top: 50%;
+  position: absolute;
+}
+
+.featured-product-list li {
+  @apply relative flex items-center text-sm italic text-my-m-gray lg:text-base;
+}
+
+.featured-product-list li::after {
+  @apply mr-2 inline-block h-[2px] w-[10px] bg-my-beige;
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -1rem;
+  transform: translateY(-50%);
+}
+
+.cart {
+  backdrop-filter: blur(4px);
+}

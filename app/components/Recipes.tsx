@@ -10,8 +10,8 @@ export default async function Recipes() {
   const recipes = await getRecipes();
 
   return (
-    <div className="mx-auto max-w-7xl px-4 md:px-6 xl:px-0">
-      <h2 className="mb-6 text-center font-playFair text-2xl font-bold md:text-3xl lg:text-4xl xl:mb-12">
+    <div className="mx-auto my-20 max-w-7xl px-4 md:px-6 xl:px-0">
+      <h2 className="mb-6 text-center font-playFair text-2xl font-bold md:text-3xl lg:text-4xl">
         Recipes with matcha green teas
       </h2>
       <div className="relative">

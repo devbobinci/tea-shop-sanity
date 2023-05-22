@@ -20,6 +20,13 @@ export default defineType({
       },
     }),
     defineField({
+      name: "bannerImage",
+      title: "Produkt na banerze",
+      type: "boolean",
+      description: "Zdjęcie na banerze",
+      initialValue: false,
+    }),
+    defineField({
       name: "mainImage",
       title: "Zdjęcie główne",
       type: "image",
@@ -71,6 +78,13 @@ export default defineType({
       name: "availability",
       title: "Dostępność",
       type: "boolean",
+      initialValue: true,
+    }),
+    defineField({
+      name: "featuredProduct",
+      title: "Wyrózniony produkt",
+      type: "boolean",
+      initialValue: false,
     }),
   ],
 

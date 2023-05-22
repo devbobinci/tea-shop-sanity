@@ -30,6 +30,7 @@
     "react-hot-toast": "^2.4.1",
     "react-html5video": "^2.5.1",
     "react-icons": "^4.8.0",
+    "react-spinners": "^0.13.8",
     "sanity": "^3.11.0",
     "stripe": "^12.5.0",
     "styled-components": "^5.2.0",

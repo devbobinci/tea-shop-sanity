@@ -1,17 +1,22 @@
-import { request } from "http";
 import { groq } from "next-sanity";
 import { client } from "./sanity.client";
 
-export async function getBannerImage() {
-  const query = groq`*[_type=="bannerImage" && current == true]{image{asset}}`;
-  const bannerImage = await client.fetch(query);
+export async function getFeaturedPosts() {
+  const query = groq`*[_type=="post"][0...3]{...}| order(_createdAt desc)`;
+  const posts = await client.fetch(query);
 
-  return bannerImage;
+  return posts;
 }
 
 export async function getPosts() {
   const query = groq`*[_type=="post"][0...3]{...}| order(_createdAt desc)`;
-  const posts = await client.fetch(query);
+
+  let posts: Post[] | undefined = [];
+  try {
+    posts = await client.fetch(query);
+  } catch (error) {
+    throw new Error("Nie udalo sie zalatowac postow");
+  }
 
   return posts;
 }
@@ -31,7 +36,7 @@ export async function getProducts() {
 
   // return data;
 
-  const query = groq`*[_type=='product']{...}`;
+  const query = groq`*[_type=='product']{...}| order(_createdAt desc)`;
   let products: Product[];
 
   try {

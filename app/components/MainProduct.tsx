@@ -1,12 +1,26 @@
-import Image from "next/image";
-import { BsChevronRight } from "react-icons/bs";
+"use client";
 
-export default function MainProduct() {
+import urlFor from "@/lib/urlFor";
+import Image from "next/image";
+import { BsCartCheck, BsChevronRight } from "react-icons/bs";
+import { useShoppingCart } from "../context/StateContext";
+import { RichTextComponents } from "./RichTextComponents";
+import { PortableText } from "@portabletext/react";
+
+type Props = {
+  product: Product;
+};
+
+export default function MainProduct({ product }: Props) {
+  const { increaseCartQuantity, getItemQuantity, openCart } = useShoppingCart();
+
+  const quantity = getItemQuantity(product?._id);
+
   return (
-    <div className="flex flex-col gap-6 md:gap-8 md:flex-row md:justify-between items-center my-16 px-4 md:px-6 xl:p-0 mx-auto max-w-7xl">
+    <div className="mx-auto my-16 flex max-w-7xl flex-col items-center gap-6 px-4 md:flex-row md:justify-between md:gap-8 md:px-6 xl:p-0">
       <div className="md:w-1/2">
         <Image
-          src="/images/zestaw.png"
+          src={urlFor(product?.mainImage?.asset).url()}
           alt="Zestaw Yerba Mate"
           width={300}
           height={400}
@@ -14,11 +28,11 @@ export default function MainProduct() {
         />
       </div>
 
-      <div className="md:w-1/2 flex flex-col items-center md:block">
-        <h2 className="text-2xl font-playFair font-bold md:text-3xl lg:text-3xl">
-          100% organic Yerba Mate
+      <div className="flex flex-col items-center md:block md:w-1/2">
+        <h2 className="font-playFair text-2xl font-bold md:text-3xl lg:text-3xl">
+          {product.title}
         </h2>
-        <div className="space-y-4 my-4 text-center md:text-left">
+        <div className="my-4 space-y-4 text-center md:text-left">
           <p className="text-my-m-gray">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
             natus.
@@ -30,30 +44,34 @@ export default function MainProduct() {
           </p>
         </div>
 
-        <h4 className="uppercase text-lg pb-2 text-my-beige font-semibold">
-          Tea benefits
-        </h4>
-        <ul className="space-y-1">
-          <li className="text-my-m-gray text-sm lg:text-base flex items-center">
-            <span className="bg-my-beige inline-block h-[2px] w-[10px] mr-2"></span>
-            Obniża ciśnienie krwi
-          </li>
-          <li className="text-my-m-gray text-sm lg:text-base flex items-center">
-            <span className="bg-my-beige inline-block h-[2px] w-[10px] mr-2"></span>
-            Poprawia trawienie
-          </li>
-          <li className="text-my-m-gray text-sm lg:text-base flex items-center">
-            <span className="bg-my-beige inline-block h-[2px] w-[10px] mr-2"></span>
-            Chroni zęby przed próchnicą
-          </li>
-          <li className="text-my-m-gray text-sm lg:text-base flex items-center">
-            <span className="bg-my-beige inline-block h-[2px] w-[10px] mr-2"></span>
-            Ułatwia zapamiętywanie i uczenie się
-          </li>
-        </ul>
+        <PortableText value={product?.body} components={RichTextComponents} />
 
-        <button className="font-semibold my-6 bg-my-yellow px-4 py-2 lg:px-6 lg:py-3 text-sm lg:text-base rounded-md flex items-center gap-2 group">
-          Kup Teraz <BsChevronRight />
+        <h3 className="py-2 text-2xl font-semibold">
+          {product?.newPrice ? product?.newPrice : product?.price}
+          {" zł"}
+          {product?.newPrice && (
+            <span className="ml-1 text-sm text-[#555] line-through">
+              {product?.price} zł
+            </span>
+          )}
+        </h3>
+
+        <button
+          onClick={() => {
+            increaseCartQuantity(product._id, product);
+            openCart();
+          }}
+          className="my-6 flex items-center gap-2 rounded-md bg-my-yellow px-4 py-2 text-sm font-semibold transition-all hover:scale-110 lg:px-6 lg:py-3 lg:text-base"
+        >
+          {quantity >= 1 ? (
+            <span className="flex items-center gap-2">
+              W Koszyku {`(${quantity})`} <BsCartCheck className="text-xl" />
+            </span>
+          ) : (
+            <span className="flex items-center gap-2">
+              Kup Teraz <BsChevronRight />
+            </span>
+          )}
         </button>
       </div>
     </div>

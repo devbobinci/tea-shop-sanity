@@ -44,8 +44,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
           quantity: item?.quantity,
         };
       }),
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success`,
-      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/canceled`,
+      // success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success`,
+      // cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/canceled`,
+      success_url: `https://tea-ecommerce.vercel.app/payment/success`,
+      cancel_url: `https://tea-ecommerce.vercel.app/payment/canceled`,
     });
     return NextResponse.json(session);
   } catch (err) {

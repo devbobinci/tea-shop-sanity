@@ -4,8 +4,8 @@ import getStripe from "@/lib/getStripe";
 import { getProducts } from "@/lib/sanity-db";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { Offcanvas, Stack } from "react-bootstrap";
 import toast from "react-hot-toast";
+import { ClipLoader } from "react-spinners";
 import {
   AiOutlineLeft,
   AiOutlineMinus,
@@ -31,6 +31,7 @@ type CartItemProps = {
 export function ShoppingCart() {
   const cartRef = useRef();
   const [products, setProducts] = useState<Product[]>([]);
+  const [loader, setLoader] = useState(false);
 
   const { isOpen, closeCart, cartItems, cartQuantity } = useShoppingCart();
 
@@ -43,6 +44,8 @@ export function ShoppingCart() {
   }, []);
 
   const handleCheckout = async () => {
+    setLoader(true);
+
     const response = await fetch("/api/getStripe", {
       method: "POST",
       headers: {
@@ -51,30 +54,34 @@ export function ShoppingCart() {
       body: JSON.stringify(cartItems),
     });
 
-    if (!response.ok) return;
+    if (!response.ok) {
+      setLoader(false);
+    }
 
-    const data = await response.json();
+    let stripe;
 
-    toast.loading("Redirecting...");
-
-    const stripe = await getStripe();
-
-    stripe!.redirectToCheckout({ sessionId: data.id });
+    try {
+      toast.loading("Redirecting...");
+      const data = await response.json();
+      stripe = await getStripe();
+      stripe!.redirectToCheckout({ sessionId: data.id });
+    } catch (error) {
+      setLoader(false);
+      throw new Error("Nie udało sie kupić, try again");
+    }
   };
-
-  console.log(cartItems);
 
   return (
     <>
       {isOpen && (
         <div
-          className="cart-wrapper fixed right-0 top-0 z-10 h-full w-full bg-black/30 transition-all"
+          className="cart-wrapper fixed bottom-0 left-0 z-10 flex h-full w-full items-end bg-black/30 md:right-0 md:top-0 md:block"
           ref={cartRef.current}
         >
-          <div className="cart-container relative float-right h-full w-[70%] bg-white/50 px-8 py-8 backdrop-blur-md lg:w-[50%]">
+          <div className="cart-container relative h-[80%] w-full bg-white/80 px-4 py-8 md:float-right md:h-full md:w-[70%] lg:w-[60%] xl:px-8 2xl:w-[50%]">
             <button
               type="button"
-              className="ml-2 flex cursor-pointer items-center gap-2 bg-transparent font-semibold"
+              className="flex cursor-pointer items-center gap-2 bg-transparent pb-2 font-semibold"
               onClick={closeCart}
             >
               <AiOutlineLeft />
@@ -88,7 +95,7 @@ export function ShoppingCart() {
                   <AiOutlineShopping size={150} />
                 </div>
                 <h3 className="text-xl font-bold">Twój koszyk jest pusty</h3>
-                <Link href="/">
+                <Link href="#products">
                   <button type="button" onClick={closeCart} className="btn">
                     Kontynuuj zakupy
                   </button>
@@ -96,7 +103,7 @@ export function ShoppingCart() {
               </div>
             )}
 
-            <div className="">
+            <div className="h-[80%] overflow-y-auto">
               {cartItems?.map((item: CartItemProps) => (
                 <div key={item.id}>
                   <CartItem itemId={item.id} item={item} products={products} />
@@ -105,9 +112,9 @@ export function ShoppingCart() {
             </div>
 
             {cartItems.length >= 1 && (
-              <div className="cart-bottom">
+              <div className="cart-bottom mx-auto  max-w-md pt-2">
                 <div className="flex justify-between text-xl">
-                  <h3>Razem:</h3>
+                  <h3 className="font-semibold">Razem:</h3>
                   <span className="font-semibold">
                     {formatCurrency(
                       cartItems.reduce((total, cartItem) => {
@@ -120,13 +127,14 @@ export function ShoppingCart() {
                   </span>
                 </div>
 
-                <div className="my-8">
+                <div className="my-4 flex justify-center">
                   <button
                     type="button"
-                    className="w-full rounded-xl bg-my-yellow px-6 py-3 font-semibold text-white"
+                    className="h-12 w-full rounded-xl bg-my-yellow px-6 py-3 text-center font-semibold text-white hover:text-black"
                     onClick={handleCheckout}
                   >
-                    Sfinalizuj zamówienie
+                    <ClipLoader loading={loader} size={25} />
+                    {!loader && "Sfinalizuj zamówienie"}
                   </button>
                 </div>
               </div>

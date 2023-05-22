@@ -10,16 +10,16 @@ export default function BrandReview() {
   const activeQuote = reviewList.find((review) => review.id === active);
 
   return (
-    <div className="mt-12 md:mt-20 mx-auto max-w-7xl">
-      <h3 className="font-semibold uppercase text-xl text-center py-6">
+    <div className="mx-auto mt-12 max-w-7xl md:mt-20">
+      <h3 className="py-6 text-center text-xl font-semibold uppercase">
         Some wild Reviews
       </h3>
-      <div className="flex flex-col items-center justify-center md:flex-row gap-6">
+      <div className="flex flex-col items-center justify-center gap-6 md:flex-row">
         {reviewList.map((review) => (
           <div
             key={review?.id}
             onClick={() => setActive(review?.id)}
-            className={`py-4 px-3 bg-white rounded-lg max-h-24 w-40 shadow-md cursor-pointer ${
+            className={`max-h-24 w-40 cursor-pointer rounded-lg bg-white px-3 py-2 shadow-md ${
               active === review?.id
                 ? "border border-my-beige"
                 : "border border-transparent"
@@ -29,17 +29,17 @@ export default function BrandReview() {
               src={review?.image}
               height={100}
               width={200}
-              className="object-contain h-20 w-full px-4"
+              className="h-20 w-full object-contain px-4"
               alt={review?.name}
             />
           </div>
         ))}
       </div>
-      <div className="text-center mx-auto max-w-lg my-8 px-4 md:px-0">
-        <h2 className="font-bold font-playFair text-3xl">
+      <div className="mx-auto my-8 max-w-lg px-4 text-center md:px-0">
+        <h2 className="font-playFair text-3xl font-bold">
           {activeQuote?.quote}
         </h2>
-        <h4 className="mt-2 text-xs uppercase font-bold">
+        <h4 className="mt-2 text-xs font-bold uppercase">
           {activeQuote?.name}
         </h4>
       </div>

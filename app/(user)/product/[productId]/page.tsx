@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { groq } from "next-sanity";
-import { client } from "../../../lib/sanity.client";
+import { client } from "@/lib/sanity.client";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { TbTruckDelivery, TbCalendarTime } from "react-icons/tb";
 import urlFor from "@/lib/urlFor";
@@ -14,6 +14,8 @@ import ExtraPhotos from "@/app/components/ExtraPhotos";
 import { getSingleProduct } from "@/lib/sanity-db";
 import PackageSize from "@/app/components/PackageSize";
 import { useShoppingCart } from "@/app/context/StateContext";
+import { PortableText } from "@portabletext/react";
+import { RichTextComponents } from "@/app/components/RichTextComponents";
 
 type Props = {
   params: {
@@ -44,22 +46,6 @@ export default function ProductPage({ params: { productId } }: Props) {
 
   const quantity = getItemQuantity(currentProduct?._id!);
 
-  // const {
-  //   title,
-  //   description,
-  //   packageSize,
-  //   price,
-  //   newPrice,
-  //   mainImage,
-  //   extraPhotos,
-  // } = currentProduct!;
-
-  const productImages: MainImage[] = [currentProduct?.mainImage!];
-  currentProduct?.extraPhotos &&
-    currentProduct?.extraPhotos.map((photo: MainImage) => {
-      productImages.push(photo);
-    });
-
   return (
     <div className="mx-auto my-6 max-w-7xl gap-16 px-4 md:my-8 md:px-6 xl:my-32 xl:flex xl:px-0">
       {/* product image div */}
@@ -77,6 +63,13 @@ export default function ProductPage({ params: { productId } }: Props) {
           {currentProduct?.extraPhotos && (
             <ExtraPhotos photos={currentProduct?.extraPhotos} />
           )}
+
+          <div>
+            <PortableText
+              value={currentProduct?.body}
+              components={RichTextComponents}
+            />
+          </div>
         </div>
       )}
 

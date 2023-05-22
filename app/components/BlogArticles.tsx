@@ -1,11 +1,11 @@
-import { getPosts } from "@/lib/sanity-db";
+import { getFeaturedPosts } from "@/lib/sanity-db";
 import BlogCard from "./BlogCard";
 
 export default async function BlogArticles() {
-  const posts = await getPosts();
+  const posts = await getFeaturedPosts();
 
   return (
-    <div className="mx-auto my-6 max-w-7xl px-4 md:px-6 xl:my-12 xl:px-0">
+    <div className="mx-auto my-6 max-w-7xl px-4 md:px-6 xl:my-16 xl:px-0">
       <div className="flex justify-between py-2">
         <h2 className="mb-4 text-lg font-bold uppercase md:text-3xl">
           Najnowsze wpisy na blogu 📝
@@ -15,10 +15,10 @@ export default async function BlogArticles() {
         </button>
       </div>
       {/* Products */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 xl:h-[500px] xl:grid-cols-2">
         {posts && (
           <>
-            <div className="flex-col justify-between gap-6 md:flex">
+            <div className="flex-col justify-between gap-4 space-y-4 md:flex md:space-y-0">
               <BlogCard key={posts[0]._id} post={posts[0]} />
               <BlogCard key={posts[1]._id} post={posts[1]} />
             </div>

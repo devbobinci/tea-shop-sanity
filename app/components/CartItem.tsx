@@ -37,7 +37,7 @@ export default function CartItem({ itemId, item, products }: CartItemProps) {
   };
 
   return (
-    <div className="my-8 flex items-center gap-4 xl:gap-8">
+    <div className="relative my-8 flex items-center gap-4 xl:gap-8">
       <Link
         href={`/product/${cartItemProduct?.slug?.current}`}
         className="flex items-center justify-center rounded-md bg-white/20"
@@ -53,12 +53,14 @@ export default function CartItem({ itemId, item, products }: CartItemProps) {
         )}
       </Link>
 
-      <div className="flex flex-1 flex-col justify-between lg:flex-row xl:items-center">
+      <div className=" flex flex-1 flex-col justify-between lg:flex-row lg:items-center">
         <div className="">
           {/* title */}
           <div className="flex items-center gap-2">
-            <h3 className="text-xl font-semibold">{cartItemProduct?.title}</h3>
-            <div className="">
+            <h3 className="text-lg font-semibold md:text-xl">
+              {cartItemProduct?.title}
+            </h3>
+            <div className="text-sm xl:text-base">
               {item?.quantity > 1 && (
                 <span className="inline-block">
                   x{cartItemProduct?.quantity}
@@ -66,39 +68,41 @@ export default function CartItem({ itemId, item, products }: CartItemProps) {
               )}
             </div>
           </div>
-          <div className="text-sm text-my-d-gray">
+          <div className="text-xs text-my-d-gray xl:text-sm">
             {formatCurrency(cartItemProduct?.price!)}
           </div>
         </div>
 
-        <p className="my-2 flex w-fit items-center gap-4 rounded-full bg-white/30 px-4 py-2 shadow-md lg:mx-2 lg:my-0 lg:flex-col 2xl:flex-row">
-          <span
-            onClick={() =>
-              decreaseCartQuantity(cartItemProduct?._id!, cartItemProduct)
-            }
-            className="minus cursor-pointer text-lg font-semibold text-red-500 hover:scale-125"
-          >
-            <AiOutlineMinus />
-          </span>
-          <span className="num text-lg font-semibold">{quantity}</span>
-          <span
-            onClick={() =>
-              increaseCartQuantity(cartItemProduct?._id!, cartItemProduct)
-            }
-            className="plus cursor-pointer text-lg font-semibold text-emerald-500 hover:scale-125"
-          >
-            <AiOutlinePlus />
-          </span>
-        </p>
+        <div className="flex flex-col gap-0 md:flex-row md:items-center md:gap-2">
+          <p className="my-2 flex h-fit w-fit items-center gap-4 rounded-full bg-white/20 px-4 py-2 shadow-md lg:mx-2 lg:my-0  2xl:flex-row">
+            <span
+              onClick={() =>
+                decreaseCartQuantity(cartItemProduct?._id!, cartItemProduct)
+              }
+              className="minus cursor-pointer text-base font-semibold text-red-500 hover:scale-125 xl:text-lg"
+            >
+              <AiOutlineMinus />
+            </span>
+            <span className="num text-base font-semibold xl:text-lg">
+              {quantity}
+            </span>
+            <span
+              onClick={() =>
+                increaseCartQuantity(cartItemProduct?._id!, cartItemProduct)
+              }
+              className="plus cursor-pointer text-base font-semibold text-emerald-500 hover:scale-125 xl:text-lg"
+            >
+              <AiOutlinePlus />
+            </span>
+          </p>
 
-        <div className="flex items-center gap-2">
-          <div className="text-lg font-semibold">
+          <div className="text-base font-semibold xl:text-lg">
             {formatCurrency(
               cartItemProduct?.price! * cartItemProduct?.quantity!
             )}
           </div>
           <button
-            className="flex h-10 w-8 items-center justify-center rounded-md text-2xl text-my-red"
+            className="remove-item right-0 h-10 w-8 rounded-md text-2xl text-my-red lg:static lg:translate-y-0"
             onClick={() => removeFromCart(itemId)}
           >
             &times;

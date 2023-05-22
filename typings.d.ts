@@ -18,6 +18,8 @@ interface Product extends Base {
   description: string;
   availability: boolean;
   packageSize: [string];
+  bannerImage: boolean;
+  featuredProduct: boolean;
 }
 
 interface Recipe extends Base {
@@ -39,10 +41,6 @@ interface Post extends Base {
 interface CartProductItem extends Product {
   quantity: number;
 }
-
-// interface BannerImage extends Base {
-//   asset: Reference;
-// }
 
 interface ExtraPhotos {
   _type: "image";

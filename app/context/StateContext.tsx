@@ -58,7 +58,6 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
       } else {
         return currItems.map((item) => {
           if (item.id === id) {
-            console.log("item", item);
             return { ...item, product, quantity: item.quantity + 1 };
           } else {
             return item;
