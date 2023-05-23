@@ -21,7 +21,6 @@ type CartItemProps = {
 export default function CartItem({ itemId, item, products }: CartItemProps) {
   const {
     removeFromCart,
-    cartItems,
     decreaseCartQuantity,
     increaseCartQuantity,
     getItemQuantity,
@@ -69,7 +68,9 @@ export default function CartItem({ itemId, item, products }: CartItemProps) {
             </div>
           </div>
           <div className="text-xs text-my-d-gray xl:text-sm">
-            {formatCurrency(cartItemProduct?.price!)}
+            {cartItemProduct.newPrice
+              ? formatCurrency(cartItemProduct?.newPrice!)
+              : formatCurrency(cartItemProduct?.price!)}
           </div>
         </div>
 
@@ -97,9 +98,13 @@ export default function CartItem({ itemId, item, products }: CartItemProps) {
           </p>
 
           <div className="text-base font-semibold xl:text-lg">
-            {formatCurrency(
-              cartItemProduct?.price! * cartItemProduct?.quantity!
-            )}
+            {cartItemProduct.newPrice
+              ? formatCurrency(
+                  cartItemProduct?.newPrice! * cartItemProduct?.quantity!
+                )
+              : formatCurrency(
+                  cartItemProduct?.price! * cartItemProduct?.quantity!
+                )}
           </div>
           <button
             className="remove-item right-0 h-10 w-8 rounded-md text-2xl text-my-red lg:static lg:translate-y-0"

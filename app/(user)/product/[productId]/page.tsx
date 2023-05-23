@@ -4,18 +4,20 @@ import { useEffect, useState } from "react";
 
 import Link from "next/link";
 import Image from "next/image";
-
 import { groq } from "next-sanity";
+
 import { client } from "@/lib/sanity.client";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { TbTruckDelivery, TbCalendarTime } from "react-icons/tb";
 import urlFor from "@/lib/urlFor";
-import ExtraPhotos from "@/app/components/ExtraPhotos";
 import { getSingleProduct } from "@/lib/sanity-db";
-import PackageSize from "@/app/components/PackageSize";
+
 import { useShoppingCart } from "@/app/context/StateContext";
-import { PortableText } from "@portabletext/react";
+import { ExtraPhotos, PackageSize } from "@/app/components";
 import { RichTextComponents } from "@/app/components/RichTextComponents";
+
+import { TbTruckDelivery, TbCalendarTime } from "react-icons/tb";
+import { PortableText } from "@portabletext/react";
+
+export const revalidate = 60;
 
 type Props = {
   params: {
@@ -25,12 +27,7 @@ type Props = {
 };
 
 export default function ProductPage({ params: { productId } }: Props) {
-  const {
-    increaseCartQuantity,
-    decreaseCartQuantity,
-    getItemQuantity,
-    openCart,
-  } = useShoppingCart();
+  const { increaseCartQuantity, getItemQuantity, openCart } = useShoppingCart();
 
   const [currentProduct, setCurrentProduct] = useState<Product>();
 
@@ -47,7 +44,7 @@ export default function ProductPage({ params: { productId } }: Props) {
   const quantity = getItemQuantity(currentProduct?._id!);
 
   return (
-    <div className="mx-auto my-6 max-w-7xl gap-16 px-4 md:my-8 md:px-6 xl:my-32 xl:flex xl:px-0">
+    <div className="mx-auto my-6 max-w-7xl gap-16 px-4 md:my-24 md:px-6 xl:my-32 xl:flex xl:px-0">
       {/* product image div */}
       {currentProduct && (
         <div className="flex flex-col gap-2 md:mx-auto md:w-2/3 lg:gap-6 xl:w-1/2">
@@ -101,40 +98,6 @@ export default function ProductPage({ params: { productId } }: Props) {
           {/* package size */}
           <PackageSize packageSize={currentProduct?.packageSize} />
           <hr />
-          {/* Ilosc produktu */}
-          {currentProduct?.availability && (
-            <>
-              <div className="flex items-center gap-4 py-6 xl:py-10">
-                <p className="flex items-center gap-6 rounded-full bg-my-gray/10 px-6 py-3 shadow-sm">
-                  <span
-                    onClick={() =>
-                      decreaseCartQuantity(currentProduct?._id!, currentProduct)
-                    }
-                    className="minus cursor-pointer text-xl font-semibold text-red-500 hover:scale-125"
-                  >
-                    <AiOutlineMinus />
-                  </span>
-                  <span className="num text-xl font-semibold">{quantity}</span>
-                  <span
-                    onClick={() =>
-                      increaseCartQuantity(currentProduct?._id!, currentProduct)
-                    }
-                    className="plus cursor-pointer text-xl font-semibold text-emerald-500 hover:scale-125"
-                  >
-                    <AiOutlinePlus />
-                  </span>
-                </p>
-                <p className="text-sm text-my-d-gray">
-                  Tylko{" "}
-                  <span className="font-semibold text-my-red">12 sztuk</span>{" "}
-                  zostało!
-                  <br />
-                  <span>Nie przegap tego.</span>
-                </p>
-              </div>
-              <hr />
-            </>
-          )}
           {/* buttony */}
           {currentProduct?.availability ? (
             <div className="flex justify-between gap-6 py-6 xl:gap-8 xl:py-10">

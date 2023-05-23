@@ -28,6 +28,7 @@ interface Recipe extends Base {
   image: MainImage;
   author: Author;
   body: [Block];
+  datePublished: string;
 }
 
 interface Post extends Base {

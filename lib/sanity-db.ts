@@ -21,6 +21,19 @@ export async function getPosts() {
   return posts;
 }
 
+export async function getRecipes() {
+  const query = groq`*[_type=="recipe"]{..., author->}| order(_createdAt desc)`;
+
+  let recipe: Recipe[] | undefined = [];
+  try {
+    recipe = await client.fetch(query);
+  } catch (error) {
+    throw new Error("Nie udalo sie zalatowac postow");
+  }
+
+  return recipe;
+}
+
 export async function getProducts() {
   // const res = await fetch(
   //   `${process.env.NEXT_PUBLIC_BASE_URL}/api/getProducts`

@@ -35,7 +35,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
               name: item?.title,
               images: [newImage],
             },
-            unit_amount: item?.price * 100,
+            unit_amount: item?.newPrice
+              ? item?.newPrice * 100
+              : item?.price * 100,
           },
           adjustable_quantity: {
             enabled: true,
@@ -46,8 +48,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
       }),
       // success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success`,
       // cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/canceled`,
-      success_url: `https://tea-ecommerce.vercel.app/payment/success`,
-      cancel_url: `https://tea-ecommerce.vercel.app/payment/canceled`,
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success`,
+      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/canceled`,
     });
     return NextResponse.json(session);
   } catch (err) {

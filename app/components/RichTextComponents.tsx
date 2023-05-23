@@ -35,13 +35,13 @@ export const RichTextComponents = {
   },
   block: {
     h1: ({ children }: any) => (
-      <h1 className="py-10 text-5xl font-bold">{children}</h1>
+      <h1 className="py-8 text-4xl font-bold">{children}</h1>
     ),
     h2: ({ children }: any) => (
-      <h2 className="py-10 text-4xl font-bold">{children}</h2>
+      <h2 className="py-6 text-2xl font-bold">{children}</h2>
     ),
     h3: ({ children }: any) => (
-      <h3 className="py-10 text-3xl font-bold text-my-beige">{children}</h3>
+      <h3 className="py-6 text-xl font-bold text-my-beige">{children}</h3>
     ),
     h4: ({ children }: any) => (
       <h4 className="py-6 text-lg font-semibold uppercase text-my-beige xl:py-8 xl:text-2xl">
@@ -55,15 +55,15 @@ export const RichTextComponents = {
   },
   marks: {
     link: ({ children, value }: any) => {
-      const rel = !value.href.startsWith("/")
+      const rel = !value?.href?.startsWith("/")
         ? "noreferrer noopener"
         : undefined;
 
       return (
         <Link
-          href={value.href}
+          href={value?.href}
           rel={rel}
-          className="hover:decoration:black underline decoration-[#F7AB0A]"
+          className="hover:decoration:black underline decoration-my-yellow"
         >
           {children}
         </Link>

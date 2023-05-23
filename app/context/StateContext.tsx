@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, ReactNode, useContext, useState } from "react";
-import { ShoppingCart } from "../components/ShoppingCart";
+import ShoppingCart from "../components/ShoppingCart";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { toast } from "react-hot-toast";
 
@@ -19,6 +19,7 @@ type CartItem = {
 type ShoppingCartContext = {
   openCart: () => void;
   closeCart: () => void;
+  clearCart: () => void;
   getItemQuantity: (id: number) => number;
   increaseCartQuantity: (id: number, product: Product) => void;
   decreaseCartQuantity: (id: number, product: Product) => void;
@@ -35,7 +36,10 @@ export function useShoppingCart() {
 }
 
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
+    "shopping-cart",
+    []
+  );
   const [isOpen, setIsOpen] = useState(false);
 
   const cartQuantity = cartItems.reduce(
@@ -65,6 +69,10 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         });
       }
     });
+  }
+
+  function clearCart() {
+    setCartItems([]);
   }
 
   function decreaseCartQuantity(id: number, product: Product) {
@@ -101,6 +109,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         decreaseCartQuantity,
         removeFromCart,
         isOpen,
+        clearCart,
       }}
     >
       {children}

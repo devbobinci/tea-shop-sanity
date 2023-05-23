@@ -1,6 +1,5 @@
 "use client";
 
-import product from "@/schemas/product";
 import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
@@ -9,9 +8,11 @@ import urlFor from "../../lib/urlFor";
 import { useShoppingCart } from "../context/StateContext";
 import { useState } from "react";
 import { BsCartCheck } from "react-icons/bs";
+import { motion as m } from "framer-motion";
 
 type Props = {
   product: Product;
+  productIndex?: number;
 };
 
 export default function ProductCard({
@@ -28,6 +29,7 @@ export default function ProductCard({
     _id,
   },
   product,
+  productIndex,
 }: Props) {
   const { increaseCartQuantity, getItemQuantity, cartItems } =
     useShoppingCart();
@@ -40,7 +42,12 @@ export default function ProductCard({
   const discount = 100 - Number((newPrice / price).toFixed(2).slice(2));
 
   return (
-    <div className="group rounded-md shadow-md">
+    <m.div
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: productIndex! / 3 }}
+      className="group rounded-md bg-white shadow-md"
+    >
       <Link href={`/product/${slug.current}`}>
         <div className="relative flex h-72 items-center justify-center rounded-t-md bg-my-beige/20">
           <Image
@@ -52,7 +59,8 @@ export default function ProductCard({
           />
           {newPrice && (
             <span className="absolute right-4 top-4 rounded-md bg-my-yellow px-2 py-1 text-xs font-semibold transition-all group-hover:text-sm">
-              {discount}% OFF
+              {discount}
+              {newPrice > price ? "% UP" : "% OFF"}
             </span>
           )}
         </div>
@@ -129,6 +137,6 @@ export default function ProductCard({
           </button>
         )}
       </div>
-    </div>
+    </m.div>
   );
 }

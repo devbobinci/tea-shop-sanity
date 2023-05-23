@@ -3,7 +3,6 @@ import {
   Benefits,
   BlogArticles,
   BrandReview,
-  // CustomersReview,
   Footer,
   HeroBanner,
   MainProduct,

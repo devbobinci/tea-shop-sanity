@@ -40,9 +40,9 @@ export default function Navbar() {
             <div onClick={openCart} className="relative cursor-pointer">
               <AiOutlineShoppingCart className="h-10 w-10 rounded-full border border-my-yellow p-2.5 text-my-yellow hover:bg-my-yellow hover:text-white" />
               {cartQuantity >= 1 && (
-                <div className="absolute -bottom-2 -left-2 flex h-6 w-6 items-center justify-center rounded-full bg-my-red text-xs text-white">
+                <span className="absolute -bottom-2 -left-2 flex h-6 w-6 items-center justify-center rounded-full bg-my-red text-xs text-white">
                   {cartQuantity}
-                </div>
+                </span>
               )}
             </div>
           </div>

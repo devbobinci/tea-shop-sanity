@@ -1,12 +1,14 @@
-import { client } from "@/lib/sanity.client";
-import { groq } from "next-sanity";
-import { getPosts } from "@/lib/sanity-db";
 import Image from "next/image";
-import urlFor from "@/lib/urlFor";
-import product from "@/schemas/product";
-import { PortableText } from "@portabletext/react";
-import { RichTextComponents } from "@/app/components/RichTextComponents";
 import Link from "next/link";
+import { groq } from "next-sanity";
+import { client } from "@/lib/sanity.client";
+import { getPosts } from "@/lib/sanity-db";
+import urlFor from "@/lib/urlFor";
+
+import { RichTextComponents } from "@/app/components/RichTextComponents";
+import { PortableText } from "@portabletext/react";
+
+export const revalidate = 60;
 
 type Props = {
   params: {
@@ -88,11 +90,11 @@ export default async function BlogPage({ params: { slug } }: Props) {
 }
 
 export async function generateStaticParams() {
-  const query = groq`*[_type == "product"]{slug{current}}`;
+  const query = groq`*[_type == "post"]{slug{current}}`;
 
-  const products = await client.fetch(query);
+  const posts = await client.fetch(query);
 
-  return products.map((product: Product) => ({
+  return posts.map((product: Product) => ({
     slug: product.slug.current,
   }));
 }

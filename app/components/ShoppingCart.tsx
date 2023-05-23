@@ -15,20 +15,14 @@ import {
 import { useShoppingCart } from "../context/StateContext";
 import { formatCurrency } from "../utilities/formatCurrency";
 import CartItem from "./CartItem";
-
-type StoreItemProps = {
-  id: number;
-  name: string;
-  price: number;
-  imgUrl: string;
-};
+import { motion as m } from "framer-motion";
 
 type CartItemProps = {
   id: number;
   quantity: number;
 };
 
-export function ShoppingCart() {
+export default function ShoppingCart() {
   const cartRef = useRef();
   const [products, setProducts] = useState<Product[]>([]);
   const [loader, setLoader] = useState(false);
@@ -78,7 +72,7 @@ export function ShoppingCart() {
           className="cart-wrapper fixed bottom-0 left-0 z-10 flex h-full w-full items-end bg-black/30 md:right-0 md:top-0 md:block"
           ref={cartRef.current}
         >
-          <div className="cart-container relative h-[80%] w-full bg-white/80 px-4 py-8 md:float-right md:h-full md:w-[70%] lg:w-[60%] xl:px-8 2xl:w-[50%]">
+          <div className="relative h-[80%] w-full bg-white/80 px-4 py-8 md:float-right md:h-full md:w-[70%] lg:w-[60%] xl:px-8 2xl:w-[50%]">
             <button
               type="button"
               className="flex cursor-pointer items-center gap-2 bg-transparent pb-2 font-semibold"
