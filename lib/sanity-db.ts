@@ -3,15 +3,22 @@ import { client } from "./sanity.client";
 
 export async function getFeaturedPosts() {
   const query = groq`*[_type=="post"][0...3]{...}| order(_createdAt desc)`;
-  const posts = await client.fetch(query);
+
+  let posts: Post[];
+
+  try {
+    posts = await client.fetch(query);
+  } catch (error) {
+    throw new Error("Nie udalo sie zaladowac postow");
+  }
 
   return posts;
 }
 
 export async function getPosts() {
-  const query = groq`*[_type=="post"][0...3]{...}| order(_createdAt desc)`;
+  const query = groq`*[_type=="post"]{...}| order(_createdAt desc)`;
 
-  let posts: Post[] | undefined = [];
+  let posts: Post[];
   try {
     posts = await client.fetch(query);
   } catch (error) {

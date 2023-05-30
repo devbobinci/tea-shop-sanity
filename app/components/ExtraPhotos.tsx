@@ -1,29 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import Image from "next/image";
 import urlFor from "@/lib/urlFor";
 
 type Props = {
   photos: MainImage[];
+  setCurrentImage: Dispatch<SetStateAction<MainImage>>;
+  currentImage: MainImage;
 };
 
-export default function ExtraPhotos({ photos }: Props) {
-  const [index, setIndex] = useState(0);
-
+export default function ExtraPhotos({
+  photos,
+  setCurrentImage,
+  currentImage,
+}: Props) {
   return (
     <div>
-      <div className="h-32 w-full flex gap-x-4">
+      <div className="flex h-32 w-full gap-x-4">
         {photos?.map((item, i) => (
-          <div key={item.asset._ref} className="bg-my-m-gray/20 rounded-md">
+          <div
+            key={item.asset._ref}
+            className="cursor-pointer rounded-md bg-my-m-gray/20 transition-all hover:shadow-lg"
+          >
             <Image
               width={300}
               height={300}
               src={urlFor(item.asset).url()!}
-              className={`${
-                i === index ? "" : ""
-              } h-full w-32 object-contain p-2`}
-              onMouseEnter={() => setIndex(i)}
+              className="h-full w-32 object-contain p-2 transition-all hover:-translate-y-1"
+              onClick={() => setCurrentImage(item)}
               alt="Product Image"
             />
           </div>

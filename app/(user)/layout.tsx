@@ -1,5 +1,4 @@
 import "../globals.css";
-import InfoBanner from "../components/InfoBanner";
 import Navbar from "../components/Navbar";
 import { ShoppingCartProvider } from "../context/StateContext";
 
@@ -17,7 +16,6 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-my-bg" suppressHydrationWarning={true}>
         <ShoppingCartProvider>
-          <InfoBanner />
           <Navbar />
           {children}
         </ShoppingCartProvider>

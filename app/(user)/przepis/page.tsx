@@ -1,8 +1,21 @@
+"use client";
+
 import { getRecipes } from "@/lib/sanity-db";
 import RecipeCard from "@/app/components/RecipeCard";
 
-export default async function Products() {
-  const recipes = await getRecipes();
+import { useEffect, useState } from "react";
+
+export default function Recipes() {
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+
+  const fetchRecipes = async () => {
+    const recipes = await getRecipes();
+    setRecipes(recipes!);
+  };
+
+  useEffect(() => {
+    fetchRecipes();
+  }, []);
 
   return (
     <div className="mx-auto my-24 max-w-7xl px-4 md:px-6 xl:my-32 xl:px-0">

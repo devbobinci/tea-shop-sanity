@@ -1,3 +1,5 @@
+"use client";
+
 import { Toaster } from "react-hot-toast";
 import {
   Benefits,
@@ -11,11 +13,22 @@ import {
 } from "../components";
 
 import { getProducts } from "@/lib/sanity-db";
+import { useEffect, useState } from "react";
 
 export const revalidate = 60;
 
-export default async function Home() {
-  const products = await getProducts();
+export default function Home() {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  const fetchProducts = async () => {
+    const products = await getProducts();
+    setProducts(products);
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   const bannerImage = products.find((product) => product.bannerImage === true);
   const featuredProduct = products.find(
     (product) => product.featuredProduct === true
@@ -26,18 +39,23 @@ export default async function Home() {
 
   return (
     <div className="xl:mt-16">
-      <Toaster />
-      {/* Navbar & InfoBanner = Layout.tsx */}
+      <Toaster
+        toastOptions={{
+          style: {
+            zIndex: 200,
+          },
+        }}
+        containerStyle={{
+          bottom: 0,
+        }}
+      />
       {/* @ts-expect-error Server Component */}
-      <HeroBanner bannerImage={bannerImage} />
-      {/* @ts-expect-error Server Component */}
-      <PopularProducts products={selectedProducts} />
+      {bannerImage && <HeroBanner bannerImage={bannerImage} />}
+      {selectedProducts && <PopularProducts products={selectedProducts} />}
       <Benefits />
       <BrandReview />
-      <MainProduct product={featuredProduct!} />
-      {/* @ts-expect-error Server Component */}
+      {featuredProduct && <MainProduct product={featuredProduct!} />}
       <Recipes />
-      {/* @ts-expect-error Server Component */}
       <BlogArticles />
       <Footer />
     </div>

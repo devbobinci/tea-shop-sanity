@@ -11,6 +11,10 @@
   position: absolute;
 }
 
+.featured-product-list {
+  @apply w-fit;
+}
+
 .featured-product-list li {
   @apply relative flex items-center text-sm italic text-my-m-gray lg:text-base;
 }
@@ -26,4 +30,18 @@
 
 .cart {
   backdrop-filter: blur(4px);
+}
+
+.show-menu {
+  visibility: visible;
+  opacity: 1;
+  @apply translate-y-[0] md:translate-x-[0] md:translate-y-0;
+  transition: 0.5 ease-in-out;
+}
+
+.hide-menu {
+  visibility: hidden;
+  opacity: 0;
+  @apply translate-y-full md:translate-x-full md:translate-y-0;
+  transition: 0.5 ease-in-out;
 }

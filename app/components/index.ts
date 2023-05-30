@@ -6,7 +6,6 @@ export { default as CartItem } from "./CartItem";
 export { default as ExtraPhotos } from "./ExtraPhotos";
 export { default as Footer } from "./Footer";
 export { default as HeroBanner } from "./HeroBanner";
-export { default as InfoBanner } from "./InfoBanner";
 export { default as MainProduct } from "./MainProduct";
 export { default as Navbar } from "./Navbar";
 export { default as PackageSize } from "./PackageSize";

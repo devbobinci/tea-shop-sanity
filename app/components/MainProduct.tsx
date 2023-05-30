@@ -6,22 +6,33 @@ import { BsCartCheck, BsChevronRight } from "react-icons/bs";
 import { useShoppingCart } from "../context/StateContext";
 import { RichTextComponents } from "./RichTextComponents";
 import { PortableText } from "@portabletext/react";
+import { useInView } from "react-intersection-observer";
 
 type Props = {
   product: Product;
 };
 
 export default function MainProduct({ product }: Props) {
+  const { ref: container, inView: containerVisible } = useInView({
+    threshold: 1,
+    triggerOnce: true,
+  });
+
   const { increaseCartQuantity, getItemQuantity, openCart } = useShoppingCart();
 
   const quantity = getItemQuantity(product?._id);
 
   return (
-    <div className="mx-auto my-16 flex max-w-7xl flex-col items-center gap-6 px-4 md:flex-row md:justify-between md:gap-8 md:px-6 xl:p-0">
+    <div
+      ref={container}
+      className={`mx-auto my-16 flex max-w-7xl flex-col items-center gap-6 px-4 transition-all duration-1000 md:flex-row md:justify-between md:gap-8 md:px-6 xl:p-0 ${
+        containerVisible ? "opacity-1 block" : "appearance-none opacity-0"
+      }`}
+    >
       <div className="md:w-1/2">
         <Image
           src={urlFor(product?.mainImage?.asset).url()}
-          alt="Zestaw Yerba Mate"
+          alt={product?.title}
           width={300}
           height={400}
           className="w-full xl:w-5/6"

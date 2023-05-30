@@ -1,8 +1,11 @@
+"use client";
+
 import Image from "next/image";
+import urlFor from "@/lib/urlFor";
+
 import { BsChevronRight } from "react-icons/bs";
 import { BiPlay } from "react-icons/bi";
-
-import urlFor from "@/lib/urlFor";
+import { motion as m } from "framer-motion";
 
 type Props = {
   bannerImage: Product;
@@ -10,11 +13,16 @@ type Props = {
 
 export default async function HeroBanner({ bannerImage }: Props) {
   return (
-    <div className="mt-14 h-[80vh] max-h-[600px] w-full bg-gradient-to-tr from-[#e2ad78] to-[#f4ca92] pt-5">
+    <div className="mt-20 h-[80vh] max-h-[600px] w-full bg-gradient-to-tr from-[#e2ad78] to-[#f4ca92] pt-5">
       {/* outer div */}
       <div className="mx-auto flex h-full max-w-7xl flex-col items-center justify-center px-4 md:flex-row md:items-center md:justify-between md:px-6 xl:px-0">
         {/* text div */}
-        <div className="max-w-sm text-white">
+        <m.div
+          initial={{ x: -150, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-sm text-white"
+        >
           <h1 className="pb-3 text-center font-playFair text-5xl md:text-left md:text-6xl lg:text-7xl">
             It&apos;s time to feel better
           </h1>
@@ -33,10 +41,13 @@ export default async function HeroBanner({ bannerImage }: Props) {
               Watch Recipes
             </button>
           </div>
-        </div>
+        </m.div>
 
         {/* image (from sanity) div */}
-        <div
+        <m.div
+          initial={{ x: 150, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}
           className="relative flex h-full w-full justify-center bg-contain bg-bottom bg-no-repeat"
           style={{ backgroundImage: `url(/images/podstawka.png)` }}
         >
@@ -45,9 +56,9 @@ export default async function HeroBanner({ bannerImage }: Props) {
             width={600}
             height={800}
             alt="Tea"
-            className="absolute bottom-[2vh] left-[1vh] h-2/3 w-full object-contain md:bottom-[2vh] md:left-[2vh] md:h-1/2 lg:h-2/3 xl:bottom-[3vh] xl:left-[3vh]"
+            className="absolute bottom-[2vh] left-1/2 h-2/3 w-fit -translate-x-[45%] object-contain md:bottom-[2vh] md:h-1/2 lg:bottom-[3vh] lg:h-2/3"
           />
-        </div>
+        </m.div>
       </div>
     </div>
   );

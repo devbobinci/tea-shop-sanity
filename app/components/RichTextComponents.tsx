@@ -2,11 +2,6 @@ import Image from "next/image";
 import urlFor from "@/lib/urlFor";
 import Link from "next/link";
 
-type Props = {
-  value: any;
-  children: any;
-};
-
 export const RichTextComponents = {
   types: {
     image: ({ value }: any) => {

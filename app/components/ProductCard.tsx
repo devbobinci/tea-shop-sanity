@@ -31,7 +31,7 @@ export default function ProductCard({
   product,
   productIndex,
 }: Props) {
-  const { increaseCartQuantity, getItemQuantity, cartItems } =
+  const { increaseCartQuantity, getItemQuantity, cartItems, openCart } =
     useShoppingCart();
 
   const [inCart, setInCart] = useState(0);
@@ -43,12 +43,13 @@ export default function ProductCard({
 
   return (
     <m.div
+      layout
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: productIndex! / 3 }}
       className="group rounded-md bg-white shadow-md"
     >
-      <Link href={`/product/${slug.current}`}>
+      <Link href={`/product/${slug?.current}`}>
         <div className="relative flex h-72 items-center justify-center rounded-t-md bg-my-beige/20">
           <Image
             src={urlFor(mainImage?.asset).url()!}
@@ -58,7 +59,7 @@ export default function ProductCard({
             className="h-60 w-60 object-contain pt-4 transition-all group-hover:h-64 group-hover:w-64"
           />
           {newPrice && (
-            <span className="absolute right-4 top-4 rounded-md bg-my-yellow px-2 py-1 text-xs font-semibold transition-all group-hover:text-sm">
+            <span className="absolute right-4 top-4 z-[1] rounded-md bg-my-yellow px-2 py-1 text-xs font-semibold transition-all group-hover:text-sm">
               {discount}
               {newPrice > price ? "% UP" : "% OFF"}
             </span>
@@ -113,6 +114,7 @@ export default function ProductCard({
               increaseCartQuantity(_id, product);
               toast.success(`${product?.title} dodano do koszyka`);
               setInCart(_id);
+              openCart();
             }}
             className={`text-xs font-bold uppercase md:text-xs ${
               availability
@@ -133,7 +135,7 @@ export default function ProductCard({
           <button
             className={`text-xs font-bold uppercase md:text-xs ${"pointer-events-none cursor-not-allowed text-my-gray"}`}
           >
-            Add to cart
+            Dodaj do koszyka
           </button>
         )}
       </div>

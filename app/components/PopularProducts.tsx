@@ -1,13 +1,26 @@
+"use client";
+
 import Link from "next/link";
 import ProductCard from "./ProductCard";
+
+import { useInView } from "react-intersection-observer";
 
 type Props = {
   products: Product[];
 };
 
-export default async function PopularProducts({ products }: Props) {
+export default function PopularProducts({ products }: Props) {
+  const { ref: container, inView: containerVisible } = useInView({
+    delay: 1000,
+  });
+
   return (
-    <div className="mx-auto mt-12 max-w-7xl px-4 md:px-6 xl:px-0">
+    <div
+      ref={container}
+      className={`mx-auto mt-12 max-w-7xl px-4 transition-all duration-1000 md:px-6 xl:px-0 ${
+        containerVisible ? "opacity-1 block" : "appearance-none opacity-0"
+      }`}
+    >
       <div className="flex justify-between py-2">
         <h2 className="mb-4 text-lg font-bold uppercase md:text-3xl">
           Najchętniej wybierane 🚀
