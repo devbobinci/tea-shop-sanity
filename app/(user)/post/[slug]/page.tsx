@@ -104,7 +104,7 @@ export default function BlogPage({ params: { slug } }: Props) {
           initial={{ y: -15, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.4 }}
-          className="relative mx-auto h-full md:w-[500px] xl:w-1/5"
+          className="sticky top-20 mx-auto h-full md:w-[500px] xl:w-1/5"
         >
           <h2 className="my-8 text-2xl font-bold">Powiązane Posty 📪</h2>
           <div className="gap-2 md:flex xl:flex-col xl:space-y-8">

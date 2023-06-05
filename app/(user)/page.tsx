@@ -12,7 +12,7 @@ import {
   Recipes,
 } from "../components";
 
-import { getProducts } from "@/lib/sanity-db";
+import { fetchProdcts } from "@/lib/fetchProducts";
 import { useEffect, useState } from "react";
 
 export const revalidate = 60;
@@ -21,7 +21,7 @@ export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
 
   const fetchProducts = async () => {
-    const products = await getProducts();
+    const products = await fetchProdcts();
     setProducts(products);
   };
 
@@ -39,16 +39,7 @@ export default function Home() {
 
   return (
     <div className="xl:mt-16">
-      <Toaster
-        toastOptions={{
-          style: {
-            zIndex: 200,
-          },
-        }}
-        containerStyle={{
-          bottom: 0,
-        }}
-      />
+      <Toaster />
       {/* @ts-expect-error Server Component */}
       {bannerImage && <HeroBanner bannerImage={bannerImage} />}
       {selectedProducts && <PopularProducts products={selectedProducts} />}

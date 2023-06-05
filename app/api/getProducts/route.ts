@@ -4,7 +4,13 @@ import { groq } from "next-sanity";
 const query = groq`*[_type=='product']{...}`;
 
 export async function GET(req: NextRequest, res: NextResponse) {
-  const products: Product[] = await client.fetch(query);
+  let products: Product[];
+
+  try {
+    products = await client.fetch(query);
+  } catch (error: any) {
+    throw new Error("Can't get single product data from db", error);
+  }
 
   return NextResponse.json(products);
 }

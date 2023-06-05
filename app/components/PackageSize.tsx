@@ -19,7 +19,7 @@ export default function PackageSize({ packageSize }: Props) {
             key={size}
             className={`${
               active === i ? "border-my-yellow text-my-yellow" : ""
-            } w-fit cursor-pointer rounded-md border border-my-gray/30 bg-white px-2 py-1 font-semibold text-my-gray hover:border-my-d-gray hover:text-my-d-gray`}
+            } w-fit cursor-pointer rounded-md border border-my-gray/30 bg-white px-2 py-1 text-xs font-semibold text-my-gray hover:border-my-d-gray hover:text-my-d-gray`}
           >
             {" "}
             {size} grams

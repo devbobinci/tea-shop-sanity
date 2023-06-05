@@ -90,7 +90,7 @@ export default function ProductCard({
               packageSize.map((size) => (
                 <div
                   key={size}
-                  className="cursor-pointer rounded-md border border-my-gray/30 bg-white px-2 py-1 text-sm font-semibold text-my-gray hover:border-my-d-gray hover:text-my-d-gray"
+                  className="cursor-pointer rounded-md border border-my-gray/30 bg-white px-2 py-1 text-sm text-xs font-semibold text-my-gray hover:border-my-d-gray hover:text-my-d-gray"
                 >
                   {size} grams
                 </div>

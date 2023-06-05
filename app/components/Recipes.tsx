@@ -32,7 +32,7 @@ export default function Recipes() {
   return (
     <div
       ref={container}
-      className={`mx-auto my-20 max-w-7xl px-4 transition-all duration-1000 md:px-6 xl:px-0 ${
+      className={`mx-auto my-20 max-w-7xl overflow-x-hidden px-4 transition-all duration-1000 md:px-6 xl:px-0 ${
         containerVisible ? "opacity-1 block" : "appearance-none opacity-0"
       }`}
     >

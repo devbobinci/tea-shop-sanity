@@ -11,7 +11,8 @@ type Props = {
 
 export default function PopularProducts({ products }: Props) {
   const { ref: container, inView: containerVisible } = useInView({
-    delay: 1000,
+    triggerOnce: true,
+    delay: 500,
   });
 
   return (

@@ -49,25 +49,14 @@ export default function BrandReview() {
           </div>
         ))}
       </div>
-      <m.div
-        key={active}
-        initial={{ y: -15, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.3, bounce: 20 }}
-        className="mx-auto my-8 max-w-lg px-4 text-center md:px-0"
-      >
+      <div className="mx-auto my-8 max-w-lg px-4 text-center md:px-0">
         <h2 className="font-playFair text-3xl font-bold">
           {activeQuote?.quote}
         </h2>
-        <m.h4
-          initial={{ y: -5, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.2, delay: 0.1 }}
-          className="mt-2 text-xs font-bold uppercase"
-        >
+        <h4 className="mt-2 text-xs font-bold uppercase">
           {activeQuote?.name}
-        </m.h4>
-      </m.div>
+        </h4>
+      </div>
     </div>
   );
 }

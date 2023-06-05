@@ -1,6 +1,7 @@
 import "../globals.css";
 import Navbar from "../components/Navbar";
 import { ShoppingCartProvider } from "../context/StateContext";
+import { UserPanelContextProvider } from "../context/UserPanelContext";
 
 export const metadata = {
   title: "Tea Shop",
@@ -14,11 +15,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-my-bg" suppressHydrationWarning={true}>
-        <ShoppingCartProvider>
-          <Navbar />
-          {children}
-        </ShoppingCartProvider>
+      <body className="bg-my-bg">
+        <UserPanelContextProvider>
+          <ShoppingCartProvider>
+            <Navbar />
+            {children}
+          </ShoppingCartProvider>
+        </UserPanelContextProvider>
       </body>
     </html>
   );

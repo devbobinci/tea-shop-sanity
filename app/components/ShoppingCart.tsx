@@ -1,21 +1,21 @@
 "use client";
 
 import getStripe from "@/lib/getStripe";
-import { getProducts } from "@/lib/sanity-db";
+import { fetchProdcts } from "@/lib/fetchProducts";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
-import {
-  AiOutlineLeft,
-  AiOutlineMinus,
-  AiOutlinePlus,
-  AiOutlineShopping,
-} from "react-icons/ai";
+import { AiOutlineLeft, AiOutlineShopping } from "react-icons/ai";
 import { useShoppingCart } from "../context/StateContext";
 import { formatCurrency } from "../utilities/formatCurrency";
 import CartItem from "./CartItem";
 import { motion as m, AnimatePresence } from "framer-motion";
+
+import { getAuth } from "firebase/auth";
+import { getDatabase, ref, set, child, push } from "firebase/database";
+import { app } from "../utilities/firebase";
+import { useUserPanelContext } from "../context/UserPanelContext";
 
 type CartItemProps = {
   id: number;
@@ -23,19 +23,39 @@ type CartItemProps = {
 };
 
 export default function ShoppingCart() {
-  const cartRef = useRef();
   const [products, setProducts] = useState<Product[]>([]);
   const [loader, setLoader] = useState(false);
 
   const { isOpen, closeCart, cartItems, cartQuantity } = useShoppingCart();
 
+  const { userPanel, setUserPanel } = useUserPanelContext();
+
   async function getItem() {
-    const products = await getProducts();
+    const products = await fetchProdcts();
     setProducts(products);
   }
   useEffect(() => {
     getItem();
   }, []);
+
+  function updateUserPurchase(userId: string) {
+    const db = getDatabase();
+    const ordersRef = ref(db, `users/${userId}/orders`);
+
+    const order = cartItems.map((item: any) => ({
+      price: item.price,
+      name: item.title,
+      quantity: item.quantity,
+      purchase_date: new Date().toLocaleString(),
+      mainImage: item.mainImage,
+      slug: item.slug,
+    }));
+
+    push(ordersRef, order);
+  }
+
+  const auth = getAuth(app);
+  const user = auth.currentUser;
 
   const handleCheckout = async () => {
     setLoader(true);
@@ -55,10 +75,11 @@ export default function ShoppingCart() {
     let stripe;
 
     try {
-      toast.loading("Redirecting...");
+      toast.loading("Przekierowywanie...");
       const data = await response.json();
       stripe = await getStripe();
-      stripe!.redirectToCheckout({ sessionId: data.id });
+      stripe?.redirectToCheckout({ sessionId: data.id });
+      updateUserPurchase(user?.uid!);
     } catch (error) {
       setLoader(false);
       throw new Error("Nie udało sie kupić, try again");
@@ -76,7 +97,7 @@ export default function ShoppingCart() {
         <div
           className={`
           ${isOpen ? "show-menu" : "hide-menu"}
-          fixed bottom-0 right-0 h-[80%] w-full bg-white/90 px-4 py-8 transition-all duration-500 md:h-full md:w-[70%] lg:w-[60%] xl:px-8 2xl:w-[50%]`}
+          fixed bottom-0 h-[80%] w-full bg-white/90 px-4 py-8 transition-all duration-500 md:h-full md:w-[70%] lg:w-[60%] xl:px-8 2xl:w-[50%]`}
         >
           <button
             type="button"
@@ -94,7 +115,7 @@ export default function ShoppingCart() {
                 <AiOutlineShopping size={150} />
               </div>
               <h3 className="text-xl font-bold">Twój koszyk jest pusty</h3>
-              <Link href="#products">
+              <Link href="/product">
                 <button type="button" onClick={closeCart} className="btn">
                   Kontynuuj zakupy
                 </button>
@@ -127,14 +148,29 @@ export default function ShoppingCart() {
               </div>
 
               <div className="my-4 flex justify-center">
-                <button
-                  type="button"
-                  className="h-12 w-full rounded-xl bg-my-yellow px-6 py-3 text-center font-semibold text-white hover:text-black"
-                  onClick={handleCheckout}
-                >
-                  <ClipLoader loading={loader} size={25} />
-                  {!loader && "Sfinalizuj zamówienie"}
-                </button>
+                {user ? (
+                  <button
+                    type="button"
+                    className="h-12 w-full rounded-xl bg-my-yellow px-6 py-3 text-center font-semibold text-white hover:text-black"
+                    onClick={handleCheckout}
+                    disabled={loader}
+                  >
+                    <ClipLoader loading={loader} size={25} />
+                    {!loader && "Sfinalizuj zamówienie"}
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setUserPanel(true);
+                      closeCart();
+                    }}
+                    type="button"
+                    className="h-12 w-full rounded-xl bg-my-yellow px-6 py-3 text-center font-semibold text-white hover:text-black"
+                    disabled={loader}
+                  >
+                    Zaloguj się
+                  </button>
+                )}
               </div>
             </div>
           )}

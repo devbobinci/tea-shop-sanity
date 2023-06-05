@@ -41,33 +41,6 @@ export async function getRecipes() {
   return recipe;
 }
 
-export async function getProducts() {
-  // const res = await fetch(
-  //   `${process.env.NEXT_PUBLIC_BASE_URL}/api/getProducts`
-  // );
-
-  // let data: Product[];
-
-  // try {
-  //   data = await res.json();
-  // } catch (error: any) {
-  //   throw new Error("Can't get all products from db", error);
-  // }
-
-  // return data;
-
-  const query = groq`*[_type=='product']{...}| order(_createdAt desc)`;
-  let products: Product[];
-
-  try {
-    products = await client.fetch(query);
-  } catch (error: any) {
-    throw new Error("Can't get single product data from db", error);
-  }
-
-  return products;
-}
-
 export async function getSingleProduct(productId: string) {
   const productQuery = groq`*[_type == "product" && slug.current == '${productId}'][0]`;
   let product: Product;

@@ -1,7 +1,8 @@
 "use client";
 
 import { ProductCard } from "@/app/components";
-import { getProducts } from "@/lib/sanity-db";
+import { fetchProdcts } from "@/lib/fetchProducts";
+
 import React, { useEffect, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 
@@ -14,7 +15,7 @@ export default function Products() {
   const [sortContainer, setSortContainer] = useState(false);
 
   const fetchProducts = async () => {
-    const products = await getProducts();
+    const products = await fetchProdcts();
     setProducts(products);
     setFiltered(products);
   };

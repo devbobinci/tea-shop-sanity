@@ -51,12 +51,6 @@ export default defineType({
       type: "number",
     }),
     defineField({
-      name: "newPrice",
-      title: "Nowa cena (przecena)",
-      type: "number",
-      description: "(Opcjonalne)",
-    }),
-    defineField({
       name: "description",
       title: "Opis",
       type: "string",
