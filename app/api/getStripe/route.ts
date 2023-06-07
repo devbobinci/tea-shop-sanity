@@ -1,3 +1,4 @@
+import { CartProductItem } from "@/typings";
 import { NextRequest, NextResponse } from "next/server";
 import { Stripe } from "stripe";
 

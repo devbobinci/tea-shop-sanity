@@ -1,4 +1,5 @@
 import urlFor from "@/lib/urlFor";
+import { Post } from "@/typings";
 import Image from "next/image";
 import Link from "next/link";
 

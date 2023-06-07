@@ -6,6 +6,7 @@ import urlFor from "@/lib/urlFor";
 import { BsChevronRight } from "@react-icons/all-files/bs/BsChevronRight";
 import { BiPlay } from "@react-icons/all-files/bi/BiPlay";
 import { motion as m } from "framer-motion";
+import { Product } from "@/typings";
 
 type Props = {
   bannerImage: Product;

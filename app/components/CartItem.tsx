@@ -9,6 +9,7 @@ import { formatCurrency } from "../utilities/formatCurrency";
 
 import { AiOutlinePlus } from "@react-icons/all-files/ai/AiOutlinePlus";
 import { AiOutlineMinus } from "@react-icons/all-files/ai/AiOutlineMinus";
+import { Product } from "@/typings";
 
 type CartItemProps = {
   products: Product[];

@@ -18,6 +18,7 @@ import { formatCurrency } from "@/app/utilities/formatCurrency";
 import { useUserPanelContext } from "@/app/context/UserPanelContext";
 import { randomOrderStatus } from "@/app/utilities/randomOrderStatus";
 import { sum } from "@/app/utilities/sumPrice";
+import { MainImage, Slug } from "@/typings";
 
 export const revalidate = 60;
 

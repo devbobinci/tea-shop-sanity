@@ -10,6 +10,7 @@ import { useShoppingCart } from "../context/StateContext";
 import { BiCart } from "@react-icons/all-files//bi/BiCart";
 import { motion as m } from "framer-motion";
 import toast from "react-hot-toast";
+import { Product } from "@/typings";
 
 type Props = {
   product: Product;

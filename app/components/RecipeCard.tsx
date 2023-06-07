@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import urlFor from "@/lib/urlFor";
 import { motion as m } from "framer-motion";
+import { Recipe } from "@/typings";
 
 type Props = {
   recipe: Recipe;

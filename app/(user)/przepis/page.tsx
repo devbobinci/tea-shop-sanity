@@ -4,6 +4,7 @@ import { fetchRecipes } from "@/lib/fetchRecipes";
 import RecipeCard from "@/app/components/RecipeCard";
 
 import { useEffect, useState } from "react";
+import { Recipe } from "@/typings";
 
 export const revalidate = 60;
 

@@ -20,6 +20,7 @@ import { motion as m, AnimatePresence } from "framer-motion";
 import { TbTruckDelivery, TbCalendarTime } from "react-icons/tb";
 import { BsChevronDown } from "@react-icons/all-files/bs/BsChevronDown";
 import toast from "react-hot-toast";
+import { Product } from "@/typings";
 
 export const revalidate = 60;
 

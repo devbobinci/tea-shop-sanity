@@ -4,6 +4,7 @@ import Link from "next/link";
 import ProductCard from "./ProductCard";
 
 import { useInView } from "react-intersection-observer";
+import { Product } from "@/typings";
 
 type Props = {
   products: Product[];

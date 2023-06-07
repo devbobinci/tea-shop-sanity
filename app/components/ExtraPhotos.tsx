@@ -3,6 +3,7 @@
 import { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import urlFor from "@/lib/urlFor";
+import { MainImage } from "@/typings";
 
 type Props = {
   photos: MainImage[];

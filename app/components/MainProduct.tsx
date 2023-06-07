@@ -9,6 +9,7 @@ import { PortableText } from "@portabletext/react";
 import { useInView } from "react-intersection-observer";
 import { BiCart } from "@react-icons/all-files/bi/BiCart";
 import { BsChevronRight } from "@react-icons/all-files/bs/BsChevronRight";
+import { Product } from "@/typings";
 
 type Props = {
   product: Product;

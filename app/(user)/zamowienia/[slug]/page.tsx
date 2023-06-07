@@ -18,6 +18,7 @@ import { MdDone } from "@react-icons/all-files/md/MdDone";
 import { MdContentCopy } from "@react-icons/all-files/md/MdContentCopy";
 import { ClipLoader } from "react-spinners";
 import { sum } from "@/app/utilities/sumPrice";
+import { MainImage, Slug } from "@/typings";
 
 export const revalidate = 60;
 

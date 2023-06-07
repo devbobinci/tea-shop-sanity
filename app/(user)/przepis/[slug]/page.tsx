@@ -13,6 +13,7 @@ import { Recipes } from "@/app/components";
 
 import { PortableText } from "@portabletext/react";
 import { AnimatePresence, motion as m } from "framer-motion";
+import { Product, Recipe } from "@/typings";
 
 export const revalidate = 60;
 

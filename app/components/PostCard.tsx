@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { motion as m } from "framer-motion";
+import { Post } from "@/typings";
 
 type Props = {
   post: Post;

@@ -6,6 +6,7 @@ import BlogCard from "./BlogCard";
 
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
+import { Post } from "@/typings";
 
 export default function BlogArticles() {
   const { ref: container, inView: containerVisible } = useInView({

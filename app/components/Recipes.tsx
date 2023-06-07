@@ -9,6 +9,7 @@ import Marquee from "react-fast-marquee";
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
 import { fetchRecipes } from "@/lib/fetchRecipes";
+import { Recipe } from "@/typings";
 
 export default function Recipes() {
   const { ref: container, inView: containerVisible } = useInView({

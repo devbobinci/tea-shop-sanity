@@ -20,6 +20,7 @@ import toast from "react-hot-toast";
 import { AiOutlineLeft } from "@react-icons/all-files/ai/AiOutlineLeft";
 import { AiOutlineShopping } from "@react-icons/all-files/ai/AiOutlineShopping";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { Product } from "@/typings";
 
 type CartItemProps = {
   id: number;

@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { client } from "@/lib/sanity.client";
 import { groq } from "next-sanity";
+import { Product } from "@/typings";
 const query = groq`*[_type=='product']{...}`;
 
 export async function GET(req: NextRequest, res: NextResponse) {

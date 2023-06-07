@@ -13,6 +13,7 @@ import {
 
 import { fetchProducts } from "@/lib/fetchProducts";
 import { useEffect, useState } from "react";
+import { Product } from "@/typings";
 
 export const revalidate = 60;
 

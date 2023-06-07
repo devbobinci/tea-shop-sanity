@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import { AiFillCaretDown } from "@react-icons/all-files/ai/AiFillCaretDown";
 
 import { AnimatePresence, motion as m } from "framer-motion";
+import { Product } from "@/typings";
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
