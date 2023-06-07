@@ -5,6 +5,8 @@ import { fetchComments } from "@/lib/fetchComments";
 
 import { motion as m } from "framer-motion";
 
+export const revalidate = 60;
+
 type Props = {
   post: Post;
 };
