@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { BiErrorAlt } from "react-icons/bi";
+import { BiErrorAlt } from "@react-icons/all-files/bi/BiErrorAlt";
 
 export default function Success() {
   return (

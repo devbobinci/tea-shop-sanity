@@ -1,6 +1,5 @@
 "use client";
 
-import { Toaster } from "react-hot-toast";
 import {
   Benefits,
   BlogArticles,
@@ -12,7 +11,7 @@ import {
   Recipes,
 } from "../components";
 
-import { fetchProdcts } from "@/lib/fetchProducts";
+import { fetchProducts } from "@/lib/fetchProducts";
 import { useEffect, useState } from "react";
 
 export const revalidate = 60;
@@ -20,13 +19,13 @@ export const revalidate = 60;
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
 
-  const fetchProducts = async () => {
-    const products = await fetchProdcts();
+  const getProducts = async () => {
+    const products = await fetchProducts();
     setProducts(products);
   };
 
   useEffect(() => {
-    fetchProducts();
+    getProducts();
   }, []);
 
   const bannerImage = products.find((product) => product.bannerImage === true);
@@ -39,9 +38,8 @@ export default function Home() {
 
   return (
     <div className="xl:mt-16">
-      <Toaster />
       {/* @ts-expect-error Server Component */}
-      {bannerImage && <HeroBanner bannerImage={bannerImage} />}
+      <HeroBanner bannerImage={bannerImage} />
       {selectedProducts && <PopularProducts products={selectedProducts} />}
       <Benefits />
       <BrandReview />

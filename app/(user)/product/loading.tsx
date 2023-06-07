@@ -1,4 +1,4 @@
-import { GiTeapot } from "react-icons/gi";
+import { GiTeapot } from "@react-icons/all-files/gi/GiTeapot";
 import { ClipLoader } from "react-spinners";
 
 export default function loading() {

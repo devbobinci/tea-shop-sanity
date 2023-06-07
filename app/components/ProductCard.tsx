@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import toast from "react-hot-toast";
+import { useState } from "react";
 
 import urlFor from "../../lib/urlFor";
 import { useShoppingCart } from "../context/StateContext";
-import { useState } from "react";
-import { BsCartCheck } from "react-icons/bs";
+
+import { BiCart } from "@react-icons/all-files//bi/BiCart";
 import { motion as m } from "framer-motion";
+import toast from "react-hot-toast";
 
 type Props = {
   product: Product;
@@ -50,7 +51,7 @@ export default function ProductCard({
       className="group rounded-md bg-white shadow-md"
     >
       <Link href={`/product/${slug?.current}`}>
-        <div className="relative flex h-72 items-center justify-center rounded-t-md bg-my-beige/20">
+        <div className="relative flex h-56 items-center justify-center rounded-t-md bg-my-beige/20 md:h-72">
           <Image
             src={urlFor(mainImage?.asset).url()!}
             width={200}
@@ -90,7 +91,7 @@ export default function ProductCard({
               packageSize.map((size) => (
                 <div
                   key={size}
-                  className="cursor-pointer rounded-md border border-my-gray/30 bg-white px-2 py-1 text-sm text-xs font-semibold text-my-gray hover:border-my-d-gray hover:text-my-d-gray"
+                  className="cursor-pointer rounded-md border border-my-gray/30 bg-white px-2 py-1 text-xs font-semibold text-my-gray hover:border-my-d-gray hover:text-my-d-gray"
                 >
                   {size} grams
                 </div>
@@ -125,7 +126,7 @@ export default function ProductCard({
             {productInCart ? (
               <span className="inline-flex items-center gap-1">
                 W koszyku {`(${quantity})`}{" "}
-                <BsCartCheck className="text-xl text-my-beige" />
+                <BiCart className="text-xl text-my-beige" />
               </span>
             ) : (
               "Dodaj do koszyka"

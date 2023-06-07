@@ -18,7 +18,7 @@ export default function PopularProducts({ products }: Props) {
   return (
     <div
       ref={container}
-      className={`mx-auto mt-12 max-w-7xl px-4 transition-all duration-1000 md:px-6 xl:px-0 ${
+      className={`mx-auto mt-12 max-w-7xl px-6 transition-all duration-1000 md:px-8 xl:px-0 ${
         containerVisible ? "opacity-1 block" : "appearance-none opacity-0"
       }`}
     >
@@ -34,7 +34,7 @@ export default function PopularProducts({ products }: Props) {
         </Link>
       </div>
       {/* Products */}
-      <div className="grid grid-cols-1 gap-y-6 md:grid-cols-2 md:gap-x-6 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="mb-4 grid grid-cols-1 gap-y-6 md:grid-cols-2 md:gap-x-6 lg:grid-cols-3 xl:grid-cols-4">
         {products &&
           products.map((product: Product) => (
             <ProductCard
@@ -47,7 +47,7 @@ export default function PopularProducts({ products }: Props) {
 
       <Link
         href="/product"
-        className="py-4 text-sm font-bold text-black underline md:hidden"
+        className="text-sm font-bold text-black underline md:hidden"
       >
         Zobacz Wszystkie
       </Link>

@@ -3,30 +3,28 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { groq } from "next-sanity";
-import { client } from "../../lib/sanity.client";
 import urlFor from "@/lib/urlFor";
 import Marquee from "react-fast-marquee";
 
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
-import { getRecipes } from "@/lib/sanity-db";
+import { fetchRecipes } from "@/lib/fetchRecipes";
 
 export default function Recipes() {
   const { ref: container, inView: containerVisible } = useInView({
-    threshold: 1,
+    delay: 500,
     triggerOnce: true,
   });
 
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
-  const fetchRecipes = async () => {
-    const recipes = await getRecipes();
+  const getRecipes = async () => {
+    const recipes = await fetchRecipes();
     setRecipes(recipes!);
   };
 
   useEffect(() => {
-    fetchRecipes();
+    getRecipes();
   }, []);
 
   return (

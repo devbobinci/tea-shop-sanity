@@ -1,5 +1,4 @@
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { GiTeapot } from "react-icons/gi";
 import { ClipLoader } from "react-spinners";
 
 export default function loading() {

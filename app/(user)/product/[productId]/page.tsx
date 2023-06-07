@@ -1,6 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -14,12 +14,12 @@ import { useShoppingCart } from "@/app/context/StateContext";
 import { ExtraPhotos, PackageSize } from "@/app/components";
 import { RichTextComponents } from "@/app/components/RichTextComponents";
 
-import { TbTruckDelivery, TbCalendarTime } from "react-icons/tb";
 import { PortableText } from "@portabletext/react";
 
 import { motion as m, AnimatePresence } from "framer-motion";
+import { TbTruckDelivery, TbCalendarTime } from "react-icons/tb";
+import { BsChevronDown } from "@react-icons/all-files/bs/BsChevronDown";
 import toast from "react-hot-toast";
-import { BsChevronDown } from "react-icons/bs";
 
 export const revalidate = 60;
 
@@ -130,13 +130,14 @@ export default function ProductPage({ params: { productId } }: Props) {
               transition={{ duration: 0.4, delay: 0.2 }}
               className="py-6 xl:pb-10 xl:pt-0"
             >
-              <h2 className="text-3xl font-bold">{currentProduct?.title}</h2>
-              <p className="text-sm text-my-m-gray xl:text-base">
+              <h2 className="text-xl font-bold md:text-3xl">
+                {currentProduct?.title}
+              </h2>
+              <p className="text-xs text-my-m-gray md:text-sm xl:text-base">
                 {currentProduct?.description}
               </p>
             </m.div>
             {/* reviews */}
-            <div></div>
             <hr />
             {/* cena */}
             <m.h3
@@ -163,10 +164,12 @@ export default function ProductPage({ params: { productId } }: Props) {
               transition={{ duration: 0.4, delay: 0.4 }}
             >
               {currentProduct?.packageSize && (
-                <PackageSize packageSize={currentProduct?.packageSize} />
+                <>
+                  <PackageSize packageSize={currentProduct?.packageSize} />
+                  <hr />
+                </>
               )}
             </m.div>
-            <hr />
             {/* buttony */}
             {currentProduct?.availability ? (
               <m.div
@@ -181,7 +184,7 @@ export default function ProductPage({ params: { productId } }: Props) {
                     increaseCartQuantity(currentProduct._id, currentProduct);
                     toast.success(`${currentProduct?.title} dodano do koszyka`);
                   }}
-                  className="flex-1 rounded-full bg-my-yellow py-4 font-semibold hover:bg-yellow-500"
+                  className="flex-1 rounded-full bg-my-yellow py-4 text-sm font-semibold hover:bg-yellow-500 md:text-base"
                 >
                   Kup Teraz
                 </button>
@@ -190,7 +193,7 @@ export default function ProductPage({ params: { productId } }: Props) {
                     increaseCartQuantity(currentProduct._id, currentProduct);
                     toast.success(`${currentProduct?.title} dodano do koszyka`);
                   }}
-                  className="flex-1 rounded-full border border-my-yellow bg-white py-4 font-semibold text-my-yellow"
+                  className="flex-1 rounded-full border border-my-yellow bg-white py-4 text-sm font-semibold text-my-yellow md:text-base"
                 >
                   {!quantity ? "Dodaj do Koszyka" : `W koszyku: ${quantity}`}
                 </button>
@@ -202,7 +205,7 @@ export default function ProductPage({ params: { productId } }: Props) {
                 transition={{ duration: 0.4, delay: 0.5 }}
                 className="py-6 xl:py-10"
               >
-                <button className="flex-1 cursor-not-allowed rounded-full border border-my-red bg-white px-4 py-4 font-semibold text-my-red">
+                <button className="flex-1 cursor-not-allowed rounded-full border border-my-red bg-white px-4 py-4 text-sm font-semibold text-my-red md:text-base">
                   Produkt tymczasowo niedostepny
                 </button>
               </m.div>
@@ -219,8 +222,10 @@ export default function ProductPage({ params: { productId } }: Props) {
               <div className="flex items-center gap-2 border-b p-4">
                 <TbTruckDelivery className="text-2xl text-my-red" />
                 <div>
-                  <h5 className="text-lg font-semibold">Darmowa dostawa</h5>
-                  <p className="text-sm">
+                  <h5 className="text-base font-semibold md:text-lg">
+                    Darmowa dostawa
+                  </h5>
+                  <p className="text-xs md:text-sm">
                     Szybka dostawa w 2-5 dni.{" "}
                     <Link href="/details" className="underline">
                       Szczegóły
@@ -235,8 +240,10 @@ export default function ProductPage({ params: { productId } }: Props) {
                 {/* icon */}
                 <TbCalendarTime className="text-2xl text-my-red" />
                 <div>
-                  <h5 className="text-lg font-semibold">Podlega zwrotowi</h5>
-                  <p className="text-sm">
+                  <h5 className="text-base font-semibold md:text-lg">
+                    Podlega zwrotowi
+                  </h5>
+                  <p className="text-xs md:text-sm">
                     Darmowe zwroty przez 30 dni.{" "}
                     <Link href="/details" className="underline">
                       Szczegóły

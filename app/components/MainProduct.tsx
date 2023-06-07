@@ -2,11 +2,13 @@
 
 import urlFor from "@/lib/urlFor";
 import Image from "next/image";
-import { BsCartCheck, BsChevronRight } from "react-icons/bs";
 import { useShoppingCart } from "../context/StateContext";
 import { RichTextComponents } from "./RichTextComponents";
+
 import { PortableText } from "@portabletext/react";
 import { useInView } from "react-intersection-observer";
+import { BiCart } from "@react-icons/all-files/bi/BiCart";
+import { BsChevronRight } from "@react-icons/all-files/bs/BsChevronRight";
 
 type Props = {
   product: Product;
@@ -14,8 +16,8 @@ type Props = {
 
 export default function MainProduct({ product }: Props) {
   const { ref: container, inView: containerVisible } = useInView({
-    threshold: 1,
     triggerOnce: true,
+    delay: 500,
   });
 
   const { increaseCartQuantity, getItemQuantity, openCart } = useShoppingCart();
@@ -76,7 +78,7 @@ export default function MainProduct({ product }: Props) {
         >
           {quantity >= 1 ? (
             <span className="flex items-center gap-2">
-              W Koszyku {`(${quantity})`} <BsCartCheck className="text-xl" />
+              W Koszyku {`(${quantity})`} <BiCart className="text-xl" />
             </span>
           ) : (
             <span className="flex items-center gap-2">

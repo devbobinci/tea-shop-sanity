@@ -7,8 +7,8 @@ import { useInView } from "react-intersection-observer";
 
 export default function Benefits() {
   const { ref: container, inView: containerVisible } = useInView({
-    threshold: 1,
     triggerOnce: true,
+    delay: 1000,
   });
   return (
     <div

@@ -5,8 +5,6 @@ import { useState } from "react";
 
 import { reviewList } from "@/lib/staticData";
 
-import { motion as m, AnimatePresence } from "framer-motion";
-
 import { useInView } from "react-intersection-observer";
 
 export default function BrandReview() {

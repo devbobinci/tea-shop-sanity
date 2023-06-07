@@ -1,10 +1,10 @@
 "use client";
 
 import { ProductCard } from "@/app/components";
-import { fetchProdcts } from "@/lib/fetchProducts";
+import { fetchProducts } from "@/lib/fetchProducts";
 
 import React, { useEffect, useState } from "react";
-import { AiFillCaretDown } from "react-icons/ai";
+import { AiFillCaretDown } from "@react-icons/all-files/ai/AiFillCaretDown";
 
 import { AnimatePresence, motion as m } from "framer-motion";
 
@@ -14,46 +14,53 @@ export default function Products() {
   const [filterOption, setFilterOption] = useState<string>("");
   const [sortContainer, setSortContainer] = useState(false);
 
-  const fetchProducts = async () => {
-    const products = await fetchProdcts();
+  const getProducts = async () => {
+    const products = await fetchProducts();
     setProducts(products);
     setFiltered(products);
   };
 
   useEffect(() => {
-    fetchProducts();
+    getProducts();
   }, []);
 
   useEffect(() => {
-    if (filterOption === "asc") {
+    if (filterOption === "desc") {
       const filtered = products.sort((a: Product, b: Product) => {
         return b.price - a.price;
       });
+
       setFiltered(filtered);
-    } else if (filterOption === "desc") {
+    } else if (filterOption === "asc") {
       const filtered = products.sort((a: Product, b: Product) => {
         return a.price - b.price;
       });
       setFiltered(filtered);
     }
-  }, [filterOption]);
+    setSortContainer(false);
+  }, [filterOption, filtered]);
 
   return (
-    <div className="mx-auto my-24 max-w-7xl px-4 md:px-6 xl:my-32 xl:px-0">
-      <div className="flex items-center justify-between">
-        <h1 className="my-8 text-center font-playFair text-3xl font-semibold md:text-4xl xl:text-5xl ">
+    <div className="mx-auto my-24 max-w-7xl px-6 md:px-8 xl:my-32 xl:px-0">
+      <div className="flex flex-col items-center justify-between md:flex-row">
+        <m.h1
+          initial={{ opacity: 0, y: -15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25 }}
+          className="my-8 text-center font-playFair text-3xl font-semibold md:text-4xl xl:text-5xl "
+        >
           Nasze produkty 🍵
-        </h1>
+        </m.h1>
 
         <div
-          onClick={() => setSortContainer((prev) => !prev)}
-          className="relative cursor-pointer select-none rounded-xl border bg-white px-12 py-4 backdrop-blur-sm"
+          onClick={() => setSortContainer(true)}
+          className="md:text-md relative cursor-pointer select-none rounded-xl border bg-white px-6 py-2 text-sm md:px-12 md:py-4"
         >
           {/* Select sorting */}
           <h2 className="flex items-center gap-2">
             {!filterOption && "Sortowanie"}
-            {filterOption === "desc" && <>Sortowanie rosnąco</>}
-            {filterOption === "asc" && <>Sortowanie malejąco</>}
+            {filterOption === "asc" && <>Sortowanie rosnąco</>}
+            {filterOption === "desc" && <>Sortowanie malejąco</>}
             {sortContainer ? (
               <AiFillCaretDown className="rotate-180 transition-all" />
             ) : (
@@ -61,20 +68,31 @@ export default function Products() {
             )}
           </h2>
           {sortContainer && (
-            <ul className="absolute left-0 top-16 z-10 w-full select-none flex-col items-center space-y-4 rounded-md border bg-white p-4 shadow-md">
-              <li
-                onClick={() => setFilterOption("asc")}
-                className="cursor-pointer hover:text-my-beige"
-              >
-                Cena malejąco
-              </li>
-              <li
+            <m.ul
+              initial={{ opacity: 0, y: -15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25 }}
+              className="absolute left-0 top-16 z-10 w-full select-none flex-col items-center space-y-4 rounded-md border bg-white p-4 shadow-md"
+            >
+              <m.li
+                initial={{ opacity: 0, x: -15 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.25, delay: 0.1 }}
                 onClick={() => setFilterOption("desc")}
                 className="cursor-pointer hover:text-my-beige"
               >
+                Cena malejąco
+              </m.li>
+              <m.li
+                initial={{ opacity: 0, x: -15 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.25, delay: 0.2 }}
+                onClick={() => setFilterOption("asc")}
+                className="cursor-pointer hover:text-my-beige"
+              >
                 Cena rosnąco
-              </li>
-            </ul>
+              </m.li>
+            </m.ul>
           )}
         </div>
       </div>

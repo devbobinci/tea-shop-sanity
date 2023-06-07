@@ -1,3 +1,4 @@
+import { Post, Product } from "@/typings";
 import { groq } from "next-sanity";
 import { client } from "./sanity.client";
 
@@ -13,32 +14,6 @@ export async function getFeaturedPosts() {
   }
 
   return posts;
-}
-
-export async function getPosts() {
-  const query = groq`*[_type=="post"]{...}| order(_createdAt desc)`;
-
-  let posts: Post[];
-  try {
-    posts = await client.fetch(query);
-  } catch (error) {
-    throw new Error("Nie udalo sie zalatowac postow");
-  }
-
-  return posts;
-}
-
-export async function getRecipes() {
-  const query = groq`*[_type=="recipe"]{..., author->}| order(_createdAt desc)`;
-
-  let recipe: Recipe[] | undefined = [];
-  try {
-    recipe = await client.fetch(query);
-  } catch (error) {
-    throw new Error("Nie udalo sie zalatowac postow");
-  }
-
-  return recipe;
 }
 
 export async function getSingleProduct(productId: string) {

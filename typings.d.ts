@@ -37,6 +37,23 @@ interface Post extends Base {
   image: MainImage;
   description: string;
   body: [Block];
+  comments: Comment[];
+}
+
+export interface Comment {
+  approved: boolean;
+  comment: string;
+  email: string;
+  name: string;
+  post: {
+    _ref: string;
+    _type: string;
+  };
+  _createdAt: string;
+  _id: string;
+  _ref: string;
+  _type: string;
+  _updatedAt: string;
 }
 
 interface CartProductItem extends Product {

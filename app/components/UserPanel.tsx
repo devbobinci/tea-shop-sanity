@@ -14,10 +14,6 @@ import {
   useEffect,
 } from "react";
 
-import { AnimatePresence, motion as m } from "framer-motion";
-import { IoMdClose } from "react-icons/io";
-import { BiError } from "react-icons/bi";
-
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
   createUserWithEmailAndPassword,
@@ -25,9 +21,13 @@ import {
   signInWithEmailAndPassword,
   User,
 } from "firebase/auth";
-import toast from "react-hot-toast";
 import { getDatabase, ref, set, update } from "firebase/database";
 import { app } from "../utilities/firebase";
+
+import { AnimatePresence, motion as m } from "framer-motion";
+import { IoMdClose } from "@react-icons/all-files/io/IoMdClose";
+import { BiError } from "@react-icons/all-files/bi/BiError";
+import toast from "react-hot-toast";
 
 type Props = {
   userPanel: boolean;
@@ -211,7 +211,7 @@ export default function UserPanel({ userPanel, setUserPanel }: Props) {
                     initial={{ y: -15, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.3, delay: 0.25 }}
-                    className="text-2xl font-semibold"
+                    className="text-xl font-semibold md:text-2xl"
                   >
                     Zaloguj się
                   </m.h2>
@@ -225,7 +225,7 @@ export default function UserPanel({ userPanel, setUserPanel }: Props) {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.5 }}
-                className="my-6 font-playFair text-lg italic"
+                className="my-6 font-playFair text-base italic md:text-lg"
               >
                 {!registerPanel ? "Witaj ponownie" : "Załóz konto"}
               </m.h2>
@@ -248,12 +248,12 @@ export default function UserPanel({ userPanel, setUserPanel }: Props) {
                       }}
                       type="text"
                       name="email"
-                      className="w-full rounded-sm p-2 outline-my-yellow ring-1 ring-my-m-gray/30 focus:ring-my-yellow"
+                      className="w-full rounded-sm border p-2 text-sm outline-my-yellow ring-1 ring-my-m-gray/30 focus:ring-my-yellow md:text-base"
                       required
                     />
                     <span
                       ref={emailLabelRef}
-                      className="absolute left-2 top-1/2 -translate-y-[50%] opacity-20 transition-all duration-200"
+                      className="absolute left-2 top-1/2 -translate-y-[50%] text-sm opacity-20 transition-all duration-200 md:text-base"
                     >
                       Email
                     </span>
@@ -289,12 +289,12 @@ export default function UserPanel({ userPanel, setUserPanel }: Props) {
                       onChange={formik.handleChange}
                       type="password"
                       name="password"
-                      className="w-full rounded-sm p-2 outline-my-yellow ring-1 ring-my-m-gray/30 focus:ring-my-yellow"
+                      className="w-full rounded-sm border p-2 text-sm outline-my-yellow ring-1 ring-my-m-gray/30 focus:ring-my-yellow md:text-base"
                       required
                     />
                     <span
                       ref={passwordLabelRef}
-                      className="absolute left-2 top-1/2 -translate-y-[50%] opacity-20 transition-all duration-200"
+                      className="absolute left-2 top-1/2 -translate-y-[50%] text-sm opacity-20 transition-all duration-200 md:text-base"
                     >
                       Hasło
                     </span>
@@ -324,19 +324,22 @@ export default function UserPanel({ userPanel, setUserPanel }: Props) {
                         <input
                           type="checkbox"
                           id="remember"
-                          className="h-6 w-6 accent-my-yellow"
+                          className="h-5 w-5 accent-my-yellow md:h-6 md:w-6"
                         />
                         <label
                           htmlFor="remember"
-                          className="text-sm text-black/70"
+                          className="text-xs text-black/70 md:text-sm"
                         >
                           Pamiętaj mnie
                         </label>
                       </div>
 
+                      <br className="block md:hidden" />
+
                       <Link
-                        href="/"
-                        className="text-sm text-black/70 underline"
+                        href="/odzyskaj-haslo"
+                        className="text-xs text-black/70 underline md:text-sm"
+                        onClick={() => setUserPanel(false)}
                       >
                         Nie pamiętasz hasła?
                       </Link>
@@ -368,12 +371,12 @@ export default function UserPanel({ userPanel, setUserPanel }: Props) {
                           onChange={formik.handleChange}
                           type="password"
                           name="passwordConfirmation"
-                          className="w-full rounded-sm p-2 outline-my-yellow ring-1 ring-my-m-gray/30 focus:ring-my-yellow"
+                          className="w-full rounded-sm border p-2 text-sm outline-my-yellow ring-1 ring-my-m-gray/30 focus:ring-my-yellow md:text-base"
                           required
                         />
                         <span
                           ref={repeatPasswordLabelRef}
-                          className="absolute left-2 top-1/2 -translate-y-[50%] opacity-20 transition-all duration-200"
+                          className="absolute left-2 top-1/2 -translate-y-[50%] text-sm opacity-20 transition-all duration-200 md:text-base"
                         >
                           Powtórz hasło
                         </span>
@@ -408,7 +411,7 @@ export default function UserPanel({ userPanel, setUserPanel }: Props) {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3, delay: 1.5 }}
                         type="button"
-                        className="w-full rounded-sm bg-black/80 py-3 text-white/90 hover:bg-black hover:text-white"
+                        className="w-full rounded-sm bg-black/80 py-3 text-sm text-white/90 hover:bg-black hover:text-white md:text-base"
                       >
                         Zaloguj się
                       </m.button>
@@ -419,7 +422,7 @@ export default function UserPanel({ userPanel, setUserPanel }: Props) {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3, delay: 1.5 }}
                         type="submit"
-                        className="w-full rounded-sm bg-black/80 py-3 text-white/90 hover:bg-black hover:text-white"
+                        className="w-full rounded-sm bg-black/80 py-3 text-sm text-white/90 hover:bg-black hover:text-white md:text-base"
                       >
                         Zaloguj się
                       </m.button>
@@ -432,7 +435,7 @@ export default function UserPanel({ userPanel, setUserPanel }: Props) {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3, delay: 1.65 }}
                         type="submit"
-                        className="w-full rounded-sm border border-black/80 bg-white/90 py-3 text-black/90 hover:border-black/100 hover:bg-white"
+                        className="w-full rounded-sm border border-black/80 bg-white/90 py-3 text-sm text-black/90 hover:border-black/100 hover:bg-white md:text-base"
                       >
                         Zarejestruj się
                       </m.button>
@@ -443,7 +446,7 @@ export default function UserPanel({ userPanel, setUserPanel }: Props) {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3, delay: 1.65 }}
                         type="button"
-                        className="w-full rounded-sm border border-black/80 bg-white/90 py-3 text-black/90 hover:border-black/100 hover:bg-white"
+                        className="w-full rounded-sm border border-black/80 bg-white/90 py-3 text-sm text-black/90 hover:border-black/100 hover:bg-white md:text-base"
                       >
                         Dołącz do nas
                       </m.button>
@@ -455,7 +458,11 @@ export default function UserPanel({ userPanel, setUserPanel }: Props) {
                     transition={{ duration: 0.3, delay: 1.8 }}
                     className="text-center"
                   >
-                    <Link href="/regulamin" className="text-black/80 underline">
+                    <Link
+                      href="/regulamin"
+                      className="text-sm text-black/80 underline md:text-base"
+                      onClick={() => setUserPanel(false)}
+                    >
                       Regulamin
                     </Link>
                   </m.div>

@@ -1,21 +1,25 @@
 "use client";
 
-import getStripe from "@/lib/getStripe";
-import { fetchProdcts } from "@/lib/fetchProducts";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import toast from "react-hot-toast";
-import { ClipLoader } from "react-spinners";
-import { AiOutlineLeft, AiOutlineShopping } from "react-icons/ai";
-import { useShoppingCart } from "../context/StateContext";
-import { formatCurrency } from "../utilities/formatCurrency";
-import CartItem from "./CartItem";
-import { motion as m, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
 
 import { getAuth } from "firebase/auth";
 import { getDatabase, ref, set, child, push } from "firebase/database";
-import { app } from "../utilities/firebase";
+import { app, auth } from "../utilities/firebase";
+
+import { formatCurrency } from "../utilities/formatCurrency";
+import { useShoppingCart } from "../context/StateContext";
 import { useUserPanelContext } from "../context/UserPanelContext";
+import getStripe from "@/lib/getStripe";
+import { fetchProducts } from "@/lib/fetchProducts";
+import CartItem from "./CartItem";
+
+import { motion as m, AnimatePresence } from "framer-motion";
+import { ClipLoader } from "react-spinners";
+import toast from "react-hot-toast";
+import { AiOutlineLeft } from "@react-icons/all-files/ai/AiOutlineLeft";
+import { AiOutlineShopping } from "@react-icons/all-files/ai/AiOutlineShopping";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 type CartItemProps = {
   id: number;
@@ -26,12 +30,14 @@ export default function ShoppingCart() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loader, setLoader] = useState(false);
 
+  const [user, loading] = useAuthState(auth);
+
   const { isOpen, closeCart, cartItems, cartQuantity } = useShoppingCart();
 
   const { userPanel, setUserPanel } = useUserPanelContext();
 
   async function getItem() {
-    const products = await fetchProdcts();
+    const products = await fetchProducts();
     setProducts(products);
   }
   useEffect(() => {
@@ -53,9 +59,6 @@ export default function ShoppingCart() {
 
     push(ordersRef, order);
   }
-
-  const auth = getAuth(app);
-  const user = auth.currentUser;
 
   const handleCheckout = async () => {
     setLoader(true);
@@ -105,7 +108,7 @@ export default function ShoppingCart() {
             onClick={closeCart}
           >
             <AiOutlineLeft />
-            <span className="text-2xl font-semibold">Koszyk</span>
+            <span className="text-xl font-semibold md:text-2xl">Koszyk</span>
             <span className="cart-num-items">({cartQuantity} rzeczy)</span>
           </button>
 
@@ -114,16 +117,22 @@ export default function ShoppingCart() {
               <div className="my-8 flex justify-center">
                 <AiOutlineShopping size={150} />
               </div>
-              <h3 className="text-xl font-bold">Twój koszyk jest pusty</h3>
+              <h3 className="text-lg font-bold md:text-xl">
+                Twój koszyk jest pusty
+              </h3>
               <Link href="/product">
-                <button type="button" onClick={closeCart} className="btn">
+                <button
+                  type="button"
+                  className="text-sm md:text-base"
+                  onClick={closeCart}
+                >
                   Kontynuuj zakupy
                 </button>
               </Link>
             </div>
           )}
 
-          <div className="h-[80%] overflow-y-auto">
+          <div className="h-[70%] overflow-y-auto md:h-[85%]">
             {cartItems?.map((item: CartItemProps) => (
               <div key={item.id}>
                 <CartItem itemId={item.id} item={item} products={products} />
@@ -132,7 +141,7 @@ export default function ShoppingCart() {
           </div>
 
           {cartItems.length >= 1 && (
-            <div className="cart-bottom mx-auto  max-w-md pt-2">
+            <div className="mx-auto my-3 max-w-md">
               <div className="flex justify-between text-xl">
                 <h3 className="font-semibold">Razem:</h3>
                 <span className="font-semibold">
@@ -147,7 +156,7 @@ export default function ShoppingCart() {
                 </span>
               </div>
 
-              <div className="my-4 flex justify-center">
+              <div className="mt-2 flex justify-center">
                 {user ? (
                   <button
                     type="button"

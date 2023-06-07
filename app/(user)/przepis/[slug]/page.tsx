@@ -1,19 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { groq } from "next-sanity";
+import { useEffect, useState } from "react";
 
+import { groq } from "next-sanity";
 import urlFor from "@/lib/urlFor";
 import { client } from "@/lib/sanity.client";
-import { getRecipes } from "@/lib/sanity-db";
-
-import { PortableText } from "@portabletext/react";
+import { fetchRecipes } from "@/lib/fetchRecipes";
 
 import { RichTextComponents } from "@/app/components/RichTextComponents";
 import { Recipes } from "@/app/components";
 
+import { PortableText } from "@portabletext/react";
 import { AnimatePresence, motion as m } from "framer-motion";
-import { useEffect, useState } from "react";
 
 export const revalidate = 60;
 
@@ -26,20 +25,20 @@ type Props = {
 export default async function RecipePage({ params: { slug } }: Props) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
-  const fetchRecipes = async () => {
-    const recipes = await getRecipes();
+  const getRecipes = async () => {
+    const recipes = await fetchRecipes();
     setRecipes(recipes!);
   };
 
   useEffect(() => {
-    fetchRecipes();
+    getRecipes();
   }, []);
 
   const recipe = recipes?.find((recipe) => recipe?.slug?.current === slug);
 
   return (
     <AnimatePresence>
-      <div className="mx-auto my-24 max-w-7xl px-4 md:px-6 xl:my-32 xl:px-0">
+      <div className="mx-auto my-24 max-w-7xl px-6 md:px-8 lg:my-32 xl:px-0">
         {recipe && (
           <div className="mx-auto md:w-2/3 xl:w-full">
             <div className="gap-16 xl:flex">

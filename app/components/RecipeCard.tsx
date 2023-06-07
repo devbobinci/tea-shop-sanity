@@ -22,7 +22,7 @@ export default function RecipeCard({
       className="group rounded-md bg-white shadow-md transition-all hover:shadow-xl"
     >
       <Link href={`/przepis/${slug.current}`}>
-        <div className="relative flex h-72 items-center justify-center overflow-hidden rounded-t-md bg-my-beige/20">
+        <div className="relative flex h-52 items-center justify-center overflow-hidden rounded-t-md bg-my-beige/20 md:h-72">
           <Image
             src={urlFor(image?.asset).url()!}
             width={500}
@@ -33,7 +33,7 @@ export default function RecipeCard({
         </div>
         <div className="flex items-center justify-between rounded-md bg-white p-4">
           <div className="py-2">
-            <h3 className="text-lg font-bold transition-all group-hover:underline xl:text-xl">
+            <h3 className="line-clamp-1 text-base font-bold transition-all group-hover:underline xl:text-xl">
               {title}
             </h3>
             <p className="line-clamp-1 text-xs text-my-gray xl:text-base">
@@ -55,7 +55,7 @@ export default function RecipeCard({
               alt={author?.name}
               className="h-8 w-8 rounded-full object-contain"
             />
-            <p className="italic text-my-yellow hover:text-gray-700">
+            <p className="text-xs italic text-my-yellow hover:text-gray-700">
               {author?.name}
             </p>
           </div>

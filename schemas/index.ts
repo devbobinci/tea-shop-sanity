@@ -4,6 +4,7 @@ import post from "./post";
 import author from "./author";
 import product from "./product";
 import recipe from "./recipe";
+import comment from "./comment";
 
 export const schemaTypes = [
   product,
@@ -12,4 +13,5 @@ export const schemaTypes = [
   author,
   category,
   blockContent,
+  comment,
 ];

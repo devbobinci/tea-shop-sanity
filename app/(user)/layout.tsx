@@ -2,6 +2,7 @@ import "../globals.css";
 import Navbar from "../components/Navbar";
 import { ShoppingCartProvider } from "../context/StateContext";
 import { UserPanelContextProvider } from "../context/UserPanelContext";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "Tea Shop",
@@ -16,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-my-bg">
+        <Toaster />
         <UserPanelContextProvider>
           <ShoppingCartProvider>
             <Navbar />

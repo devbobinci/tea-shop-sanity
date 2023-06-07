@@ -1,29 +1,25 @@
 "use client";
 
-import { Auth, getAuth, signOut, User } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import Image from "next/image";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
-
-import { AiOutlineLogout, AiOutlineShoppingCart } from "react-icons/ai";
-import { MdManageAccounts } from "react-icons/md";
-import { HiOutlineMenuAlt2, HiOutlineUser } from "react-icons/hi";
-import { IoMdClose } from "react-icons/io";
-import { TfiPackage } from "react-icons/tfi";
+import { useState } from "react";
 
 import { useShoppingCart } from "../context/StateContext";
-
-import { motion as m } from "framer-motion";
-import { DesktopNavLinks, MobileNavLinks } from "./NavLinks";
+import { useUserPanelContext } from "../context/UserPanelContext";
 import UserPanel from "./UserPanel";
-import toast from "react-hot-toast";
+import { DesktopNavLinks, MobileNavLinks } from "./NavLinks";
 
-import {
-  UserPanelContextProvider,
-  useUserPanelContext,
-} from "../context/UserPanelContext";
+import { AiOutlineLogout } from "@react-icons/all-files/ai/AiOutlineLogout";
+import { AiOutlineShoppingCart } from "@react-icons/all-files/ai/AiOutlineShoppingCart";
+import { HiOutlineMenuAlt2 } from "@react-icons/all-files/hi/HiOutlineMenuAlt2";
+import { HiOutlineUser } from "@react-icons/all-files/hi/HiOutlineUser";
+import { IoMdClose } from "@react-icons/all-files/io/IoMdClose";
+import { VscPackage } from "@react-icons/all-files/vsc/VscPackage";
+import toast from "react-hot-toast";
+import { motion as m } from "framer-motion";
 
 export default function Navbar() {
   const [menu, setMenu] = useState(false);
@@ -62,7 +58,7 @@ export default function Navbar() {
             <MobileNavLinks closeMenu={closeMenu} menu={menu} />
 
             <div
-              className="flex flex-row-reverse items-center gap-4 md:flex-row"
+              className="flex flex-row-reverse items-center gap-4"
               suppressHydrationWarning
             >
               <button
@@ -87,38 +83,43 @@ export default function Navbar() {
                     {user?.email?.slice(0, 3) + "..."}
                     <HiOutlineUser
                       onMouseEnter={() => setLoggedUserPanel(true)}
+                      onClick={() => setLoggedUserPanel(true)}
                       className="h-10 w-10 cursor-pointer rounded-full border border-my-yellow bg-my-yellow p-2.5 
                         text-white transition-all hover:bg-white hover:text-my-yellow"
                     />
                   </div>
                   {loggedUserPanel && (
-                    <div
-                      onMouseLeave={() => setLoggedUserPanel(false)}
-                      className="absolute right-0 top-20 min-w-[16rem] rounded-xl border bg-white p-6 xl:p-10"
+                    <m.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.25, bounce: 10 }}
+                      className="absolute right-0 top-16 min-w-full rounded-xl border bg-white p-6 md:min-w-[16rem] xl:p-10"
                     >
+                      <IoMdClose
+                        onClick={() => setLoggedUserPanel(false)}
+                        className="absolute -right-2 -top-2 h-6 w-6 cursor-pointer rounded-full border bg-white p-1 text-xl transition-all hover:h-7 hover:w-7"
+                      />
                       <ul className="flex flex-col items-center gap-3">
-                        <li className="inline-flex items-center gap-2 uppercase text-gray-700 transition-all hover:text-black">
-                          Konto <MdManageAccounts className="text-xl" />
-                        </li>
-                        <li>
+                        <li onClick={() => setLoggedUserPanel(false)}>
                           <Link
                             href="/zamowienia"
-                            className="inline-flex items-center gap-2  uppercase text-gray-700 transition-all hover:text-black"
+                            className="inline-flex items-center gap-2 text-sm uppercase text-gray-700 transition-all hover:text-black md:text-base"
                           >
-                            Zamówienia <TfiPackage />
+                            Zamówienia <VscPackage className="text-2xl" />
                           </Link>
                         </li>
                         <li
                           onClick={() => {
                             signOut(auth);
                             toast.success("Wylogowano 👋🏽");
+                            setLoggedUserPanel(false);
                           }}
-                          className="inline-flex cursor-pointer items-center gap-2 uppercase text-gray-700 transition-all hover:text-black"
+                          className="inline-flex cursor-pointer items-center gap-2 text-sm uppercase text-gray-700 transition-all hover:text-black md:text-base"
                         >
                           Wyloguj się <AiOutlineLogout className="text-xl" />
                         </li>
                       </ul>
-                    </div>
+                    </m.div>
                   )}
                 </div>
               ) : (

@@ -1,4 +1,4 @@
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineShoppingCart } from "@react-icons/all-files/ai/AiOutlineShoppingCart";
 import { ClipLoader } from "react-spinners";
 
 export default function loading() {

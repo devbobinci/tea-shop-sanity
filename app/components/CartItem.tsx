@@ -3,18 +3,20 @@
 import urlFor from "@/lib/urlFor";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+
 import { useShoppingCart } from "../context/StateContext";
 import { formatCurrency } from "../utilities/formatCurrency";
 
+import { AiOutlinePlus } from "@react-icons/all-files/ai/AiOutlinePlus";
+import { AiOutlineMinus } from "@react-icons/all-files/ai/AiOutlineMinus";
+
 type CartItemProps = {
+  products: Product[];
   itemId: number;
   item: {
     id: number;
     quantity: number;
   };
-  products: Product[];
 };
 
 export default function CartItem({ itemId, item, products }: CartItemProps) {

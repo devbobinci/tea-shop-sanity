@@ -5,11 +5,12 @@ import { useEffect, useState } from "react";
 import BlogCard from "./BlogCard";
 
 import { useInView } from "react-intersection-observer";
+import Link from "next/link";
 
 export default function BlogArticles() {
   const { ref: container, inView: containerVisible } = useInView({
-    threshold: 1,
     triggerOnce: true,
+    delay: 500,
   });
 
   const [posts, setPosts] = useState<Post[]>([]);
@@ -39,7 +40,7 @@ export default function BlogArticles() {
         </button>
       </div>
       {/* Posts */}
-      <div className="grid grid-cols-1 gap-6 xl:h-[500px] xl:grid-cols-2">
+      <div className="mb-4 grid grid-cols-1 gap-6 xl:h-[500px] xl:grid-cols-2">
         {posts && (
           <>
             <div className="flex-col justify-between gap-4 space-y-4 md:flex md:space-y-0">
@@ -53,9 +54,9 @@ export default function BlogArticles() {
         )}
       </div>
 
-      <button className="py-4 text-sm font-bold underline md:hidden">
+      <Link href="/post" className=" text-sm font-bold underline md:hidden">
         Zobacz Wszystkie
-      </button>
+      </Link>
     </div>
   );
 }

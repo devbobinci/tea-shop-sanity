@@ -5,15 +5,19 @@ import { child, get, getDatabase, ref } from "firebase/database";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import { useEffect, useState, useRef } from "react";
-import useCopyToClipboard from "../../../hooks/useCopyToClipboard";
 
-import { RxCopy } from "react-icons/rx";
-import toast from "react-hot-toast";
 import Link from "next/link";
 import urlFor from "@/lib/urlFor";
 import Image from "next/image";
+
 import { formatCurrency } from "@/app/utilities/formatCurrency";
-import { MdDone } from "react-icons/md";
+import { useRouter } from "next/navigation";
+import useCopyToClipboard from "@/app/hooks/useCopyToClipboard";
+
+import { MdDone } from "@react-icons/all-files/md/MdDone";
+import { MdContentCopy } from "@react-icons/all-files/md/MdContentCopy";
+import { ClipLoader } from "react-spinners";
+import { sum } from "@/app/utilities/sumPrice";
 
 export const revalidate = 60;
 
@@ -32,19 +36,12 @@ type OrderedProduct = {
   slug: Slug;
 };
 
-function sum(array: any) {
-  let sum = 0;
-
-  array.forEach((item: number) => {
-    sum += item;
-  });
-  return sum;
-}
-
 export default function OrderPage({ params: { slug } }: Props) {
   const [order, setOrder] = useState<OrderedProduct[]>([]);
   const [user, loading] = useAuthState(auth);
   const [value, copy] = useCopyToClipboard();
+
+  const router = useRouter();
 
   const db = getDatabase();
   function getOrderedProduct() {
@@ -65,10 +62,30 @@ export default function OrderPage({ params: { slug } }: Props) {
 
   useEffect(() => {
     db && getOrderedProduct();
+
+    if (!user) {
+      router.push("/zamowienia");
+    }
   }, [user]);
 
+  if (loading) {
+    return (
+      <div
+        className="mx-auto my-24 flex max-w-7xl justify-center px-4 md:px-6 lg:my-32 xl:px-0"
+        suppressHydrationWarning
+      >
+        <span>Ładowanie...</span>
+        <br />
+        <ClipLoader color="gray" size={20} />
+      </div>
+    );
+  }
+
   return (
-    <div className="mx-auto my-24 max-w-7xl px-4 md:px-6 xl:my-32 xl:px-0">
+    <div
+      className="mx-auto my-24 max-w-7xl px-4 md:px-6 lg:my-32 xl:px-0"
+      suppressHydrationWarning
+    >
       <div className="mx-auto max-w-5xl rounded-md bg-white p-4 shadow-md xl:p-8">
         <h1 className="text-center text-2xl font-semibold uppercase md:text-3xl">
           Dane zamówienia
@@ -78,17 +95,23 @@ export default function OrderPage({ params: { slug } }: Props) {
           <div>
             Numer zamówienia{" "}
             {!value ? (
-              <RxCopy
+              <MdContentCopy
                 onClick={() => copy(slug)}
                 className="inline cursor-pointer text-xl text-gray-700 hover:text-black"
               />
             ) : (
               <MdDone className="inline cursor-pointer text-xl text-gray-700 hover:text-black" />
             )}
-            <p className="block">{slug}</p>
+            <p className="block text-sm text-gray-800">{slug}</p>
           </div>
 
-          <div>Data zamówienia {order[0]?.purchase_date}</div>
+          <div className="md:text-right">
+            Data zamówienia
+            <br />{" "}
+            <span className="text-sm text-gray-800">
+              {order[0]?.purchase_date}
+            </span>
+          </div>
         </div>
 
         <hr className="mb-4" />
