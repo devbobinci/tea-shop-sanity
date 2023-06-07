@@ -34,12 +34,6 @@ export default function CommentsForm({
     validationSchema: ValidationCommentSchema(),
     onSubmit: async (values) => {
       const { email, name, comment } = values;
-      const commentBody = {
-        email: email,
-        name: name,
-        comment: comment,
-        postId: postId,
-      };
 
       const result = await fetch(`/api/createComment`, {
         method: "POST",
@@ -63,7 +57,7 @@ export default function CommentsForm({
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.3 }}
-          className="mx-auto my-10 flex max-w-2xl flex-col bg-yellow-500 p-10 text-white"
+          className="mx-auto my-10 flex flex-col bg-yellow-500 p-10 text-white"
         >
           <h3 className="text-3xl font-bold">
             Dziękujemy za umieszczenie komentarza!
@@ -76,7 +70,7 @@ export default function CommentsForm({
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.3, delay: 0.6 }}
           onSubmit={formik.handleSubmit}
-          className="mx-auto my-10 flex max-w-2xl flex-col xl:p-10"
+          className="mx-auto my-10 flex flex-col"
         >
           <h3 className="text-sm text-my-yellow">Spodobał ci się artykuł?</h3>
           <h4 className="text-3xl font-bold"> Zostaw komentarz!</h4>
@@ -86,7 +80,6 @@ export default function CommentsForm({
             <span className="text-gray-700">Imię</span>
             <input
               onChange={formik.handleChange}
-              // {...register("name", { required: true })}
               value={formik.values.name}
               className="form-input mt-1 block w-full rounded border px-3 py-2 shadow outline-none ring-my-yellow focus:ring"
               placeholder="John Appleseed"
