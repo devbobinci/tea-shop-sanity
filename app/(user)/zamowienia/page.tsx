@@ -38,6 +38,11 @@ type OrderedProduct = {
   slug: Slug;
 };
 
+type OrderEntries = {
+  id: [string];
+  orders: OrderedProduct[];
+};
+
 export default function Orders() {
   const [orders, setOrders] = useState<Order[]>([]);
   const { userPanel, setUserPanel } = useUserPanelContext();
@@ -46,6 +51,7 @@ export default function Orders() {
   const [user, loading] = useAuthState(auth);
 
   const db = getDatabase();
+
   function getOrderedProducts() {
     const dbRef = ref(db);
 
@@ -82,7 +88,7 @@ export default function Orders() {
     db && getOrderedProducts();
   }, [user]);
 
-  if (user && orders.length === 0) {
+  if (user && orders?.length === 0) {
     getOrderedProducts();
   }
 

@@ -52,7 +52,7 @@ export default function UserPanel({ userPanel, setUserPanel }: Props) {
 
         // Adding to database
 
-        set(ref(db, `users/${user.uid}`), {
+        set(ref(db, `users/${user?.uid}`), {
           email: email,
         });
 
@@ -73,16 +73,6 @@ export default function UserPanel({ userPanel, setUserPanel }: Props) {
 
     await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-
-        // Updating last user login into account
-        const dt = new Date().toLocaleString();
-        const db = getDatabase();
-        update(ref(db, `users/${user?.uid}`), {
-          last_login: dt,
-        });
-
         toast.success("Zalogowano!");
         closeUserPanel();
       })
@@ -110,9 +100,7 @@ export default function UserPanel({ userPanel, setUserPanel }: Props) {
       passwordConfirmation: "",
     },
     validationSchema: ValidationSchema(),
-    onSubmit: (values) => {
-      console.log(JSON.stringify(values, null, 2));
-    },
+    onSubmit: (values) => {},
   });
 
   function checkInputValue(input: string) {

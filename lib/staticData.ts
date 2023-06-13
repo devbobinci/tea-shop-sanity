@@ -2,28 +2,28 @@ export const benefitsList = [
   {
     id: 1,
     icon: "/images/icons/shield.png",
-    name: "100% Organic",
+    name: "100% organiczne",
     description:
       " Lorem ipsum, dolor sit amet consectetur adipisicing enim dolores veniam vel animi provident?",
   },
   {
     id: 2,
     icon: "/images/icons/heart.png",
-    name: "Effective",
+    name: "Efektywne",
     description:
       " Lorem ipsum, dolor sit amet consectetur adipisicing enim dolores veniam vel animi provident?",
   },
   {
     id: 3,
     icon: "/images/icons/vegan.png",
-    name: "Naturally Vegan",
+    name: "Naturalne",
     description:
       " Lorem ipsum, dolor sit amet consectetur adipisicing enim dolores veniam vel animi provident?",
   },
   {
     id: 4,
     icon: "/images/icons/no-plastic.png",
-    name: "Plastic Free",
+    name: "Wolne od plastiku",
     description:
       " Lorem ipsum, dolor sit amet consectetur adipisicing enim dolores veniam vel animi provident?",
   },
