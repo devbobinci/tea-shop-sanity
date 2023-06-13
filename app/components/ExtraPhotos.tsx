@@ -11,11 +11,7 @@ type Props = {
   currentImage: MainImage;
 };
 
-export default function ExtraPhotos({
-  photos,
-  setCurrentImage,
-  currentImage,
-}: Props) {
+export default function ExtraPhotos({ photos, setCurrentImage }: Props) {
   return (
     <div>
       <div className="flex h-32 w-full gap-x-4">

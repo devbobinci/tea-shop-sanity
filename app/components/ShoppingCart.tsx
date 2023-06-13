@@ -3,9 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { getAuth } from "firebase/auth";
-import { getDatabase, ref, set, child, push } from "firebase/database";
-import { app, auth } from "../utilities/firebase";
+import { getDatabase, ref, push } from "firebase/database";
+import { auth } from "../utilities/firebase";
 
 import { formatCurrency } from "../utilities/formatCurrency";
 import { useShoppingCart } from "../context/StateContext";

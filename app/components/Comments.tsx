@@ -30,7 +30,7 @@ export default function Comments({ post }: Props) {
       transition={{ duration: 0.3, delay: 0.5 }}
     >
       {comments.length > 0 && (
-        <div className="mx-auto my-10 flex flex-col space-y-3 rounded-md p-5 shadow-md xl:p-10">
+        <div className="mx-auto my-10 flex flex-col space-y-3 rounded-md bg-white p-5 shadow-md md:w-[500px] lg:w-2/3 xl:w-full xl:p-10">
           <h3 className="text-4xl">Komentarze</h3>
           <hr className="pb-2" />
 

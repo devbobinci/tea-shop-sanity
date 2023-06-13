@@ -8,7 +8,6 @@ export { default as Footer } from "./Footer";
 export { default as HeroBanner } from "./HeroBanner";
 export { default as MainProduct } from "./MainProduct";
 export { default as Navbar } from "./Navbar";
-export { default as PackageSize } from "./PackageSize";
 export { default as PopularProducts } from "./PopularProducts";
 export { default as ProductCard } from "./ProductCard";
 export { default as Recipes } from "./Recipes";

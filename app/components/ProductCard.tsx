@@ -60,12 +60,6 @@ export default function ProductCard({
             alt="Tea"
             className="h-60 w-60 object-contain pt-4 transition-all group-hover:h-64 group-hover:w-64"
           />
-          {newPrice && (
-            <span className="absolute right-4 top-4 z-[1] rounded-md bg-my-yellow px-2 py-1 text-xs font-semibold transition-all group-hover:text-sm">
-              {discount}
-              {newPrice > price ? "% UP" : "% OFF"}
-            </span>
-          )}
         </div>
         <div className="rounded-md bg-white p-4">
           <div className="flex items-center justify-between">
@@ -102,14 +96,7 @@ export default function ProductCard({
       </Link>
       {/* Cena */}
       <div className="flex justify-between rounded-b-md border-t-2 border-my-gray/20 bg-white p-4 py-4">
-        <h4 className="text-lg font-semibold text-my-d-gray">
-          {newPrice ? newPrice : price}zł{" "}
-          {newPrice && (
-            <span className="ml-1 text-sm text-[#555] line-through">
-              {price}zł
-            </span>
-          )}
-        </h4>
+        <h4 className="text-lg font-semibold text-my-d-gray">{price}zł</h4>
         {availability ? (
           <button
             onClick={() => {

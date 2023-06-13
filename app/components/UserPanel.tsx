@@ -9,12 +9,10 @@ import {
   SetStateAction,
   useState,
   useRef,
-  Ref,
   RefObject,
   useEffect,
 } from "react";
 
-import { useAuthState } from "react-firebase-hooks/auth";
 import {
   createUserWithEmailAndPassword,
   getAuth,

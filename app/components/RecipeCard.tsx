@@ -17,6 +17,7 @@ export default function RecipeCard({
 }: Props) {
   return (
     <m.div
+      key={_id}
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: recipeIndex / 3 }}

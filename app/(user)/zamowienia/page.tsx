@@ -86,6 +86,10 @@ export default function Orders() {
     getOrderedProducts();
   }
 
+  const sortedOrders = orders?.sort((a: Order, b: Order) => {
+    return a.purchase_date[0] ? -1 : b.purchase_date[0] ? 1 : 0;
+  });
+
   if (!user && !loading) {
     return (
       <div
@@ -128,7 +132,7 @@ export default function Orders() {
     >
       <div className="mx-auto grid max-w-5xl gap-8">
         {orders &&
-          orders.map((order: Order, i: number) => (
+          sortedOrders.map((order: Order, i: number) => (
             <Link key={order.id} href={`zamowienia/${order.id}`}>
               <div
                 key={order.id}
