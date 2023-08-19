@@ -18,7 +18,7 @@ export default function Benefits() {
       }`}
     >
       <h2 className="mx-auto max-w-2xl py-4 text-center font-playFair text-3xl font-semibold text-black md:py-8 md:text-5xl">
-        Tea, The pleasure of taking care of yourself
+        Herbata, przyjemność z dbania o siebie.
       </h2>
 
       <div className="my-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 xl:gap-8">
@@ -36,7 +36,7 @@ export default function Benefits() {
             />
 
             <h4 className="py-3 text-lg font-bold">{benefit.name}</h4>
-            <p className="max-w-md text-center text-my-gray">
+            <p className="max-w-md text-center text-sm text-my-gray">
               {benefit.description}
             </p>
           </div>

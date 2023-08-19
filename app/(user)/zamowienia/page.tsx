@@ -38,11 +38,6 @@ type OrderedProduct = {
   slug: Slug;
 };
 
-type OrderEntries = {
-  id: [string];
-  orders: OrderedProduct[];
-};
-
 export default function Orders() {
   const [orders, setOrders] = useState<Order[]>([]);
   const { userPanel, setUserPanel } = useUserPanelContext();

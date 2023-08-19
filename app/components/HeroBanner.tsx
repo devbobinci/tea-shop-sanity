@@ -27,21 +27,16 @@ export default async function HeroBanner({ bannerImage }: Props) {
               className="max-w-sm text-white"
             >
               <h1 className="pb-3 text-center font-playFair text-5xl md:text-left md:text-6xl lg:text-7xl">
-                It&apos;s time to feel better
+                Pora na herbatę
               </h1>
               <p className="py-4 text-center text-lg md:text-left lg:text-xl">
-                High quality products to improve your health and mood
+                Wysokiej jakości produkty, które poprawią działanie organizmu i
+                humor
               </p>
 
               <div className="flex flex-col items-center justify-center gap-2 md:items-start md:justify-normal lg:flex-row">
-                <button className="inline-flex w-fit items-center gap-2 rounded-md bg-black px-5 py-3 text-sm md:px-6 md:py-4 md:text-base">
-                  Get Started <BsChevronRight />
-                </button>
-                <button className="group inline-flex items-center gap-2 rounded-md py-2 text-sm md:text-base lg:px-4">
-                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/25 backdrop-blur-sm group-hover:bg-white/50">
-                    <BiPlay className="ml-1 text-3xl" />
-                  </span>{" "}
-                  Watch Recipes
+                <button className="inline-flex w-fit items-center gap-2 rounded-md bg-black px-5 py-2.5 text-sm md:px-6 md:py-3 md:text-base">
+                  Zobacz <BsChevronRight />
                 </button>
               </div>
             </m.div>

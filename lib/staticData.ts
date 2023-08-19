@@ -44,19 +44,19 @@ export const reviewList = [
   {
     id: 1,
     name: "Bob Marley",
-    quote: "Continued consumption helps fight aging and cell deterioration",
+    quote: "Regularne stosowanie spowalnia proces starzenia się i odżywia mózg",
     image: "/images/brand/wailers.png",
   },
   {
     id: 2,
     name: "Wiz Khalifa",
-    quote: "Continued consumption helps with i did what i did what i did...",
+    quote: "Herbaty pełne smaku i właściwości, uwielbiam to...",
     image: "/images/brand/khalifa.png",
   },
   {
     id: 3,
     name: "Snopp Dogg",
-    quote: `La-da-da-da-dah It's the motherfuckin' D-O-double-G`,
+    quote: `La-da-da-da-dah It's the motherfukkin' D-O-double-G`,
     image: "/images/brand/dogg.png",
   },
 ];

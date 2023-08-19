@@ -5,12 +5,11 @@ import { Recipe } from "@/typings";
 const query = groq`*[_type=="recipe"]{..., author->}| order(_createdAt desc)`;
 
 export async function GET(req: NextRequest, res: NextResponse) {
-  let recipes: Recipe[] | undefined = [];
   try {
-    recipes = await client.fetch(query);
+    const recipes: Recipe[] | undefined = await client.fetch(query);
+    return NextResponse.json(recipes);
   } catch (error) {
-    throw new Error("Nie udalo sie zalatowac postow");
+    console.log(error);
+    throw new Error("Could not fetch all recipes");
   }
-
-  return NextResponse.json(recipes);
 }

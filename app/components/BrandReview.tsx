@@ -24,7 +24,7 @@ export default function BrandReview() {
       }`}
     >
       <h3 className="py-6 text-center text-xl font-semibold uppercase">
-        Some wild Reviews
+        Recenzje ekspertów
       </h3>
       <div className="flex flex-col items-center justify-center gap-6 md:flex-row">
         {reviewList.map((review) => (

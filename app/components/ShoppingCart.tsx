@@ -13,7 +13,7 @@ import getStripe from "@/lib/getStripe";
 import { fetchProducts } from "@/lib/fetchProducts";
 import CartItem from "./CartItem";
 
-import { motion as m, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { ClipLoader } from "react-spinners";
 import toast from "react-hot-toast";
 import { AiOutlineLeft } from "@react-icons/all-files/ai/AiOutlineLeft";
@@ -30,11 +30,11 @@ export default function ShoppingCart() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loader, setLoader] = useState(false);
 
-  const [user, loading] = useAuthState(auth);
+  const [user] = useAuthState(auth);
 
   const { isOpen, closeCart, cartItems, cartQuantity } = useShoppingCart();
 
-  const { userPanel, setUserPanel } = useUserPanelContext();
+  const { setUserPanel } = useUserPanelContext();
 
   async function getItem() {
     const products = await fetchProducts();

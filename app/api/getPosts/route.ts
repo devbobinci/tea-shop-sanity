@@ -5,12 +5,11 @@ import { Post } from "@/typings";
 const query = groq`*[_type=="post"]{...}| order(_createdAt desc)`;
 
 export async function GET(req: NextRequest, res: NextResponse) {
-  let posts: Post[] | undefined = [];
   try {
-    posts = await client.fetch(query);
+    const posts: Post[] | undefined = await client.fetch(query);
+    return NextResponse.json(posts);
   } catch (error) {
-    throw new Error("Nie udalo sie zalatowac postow");
+    console.log(error);
+    throw new Error("Could not get posts");
   }
-
-  return NextResponse.json(posts);
 }

@@ -54,5 +54,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     return NextResponse.json(session);
   } catch (err) {
     console.log(err);
+    throw new Error("Could not get bought item");
   }
 }

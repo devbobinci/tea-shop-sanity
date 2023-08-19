@@ -5,13 +5,11 @@ import { Product } from "@/typings";
 const query = groq`*[_type=='product']{...}`;
 
 export async function GET(req: NextRequest, res: NextResponse) {
-  let products: Product[];
-
   try {
-    products = await client.fetch(query);
+    const products: Product[] = await client.fetch(query);
+    return NextResponse.json(products);
   } catch (error: any) {
-    throw new Error("Can't get single product data from db", error);
+    console.log(error);
+    throw new Error("Could not get product data", error);
   }
-
-  return NextResponse.json(products);
 }

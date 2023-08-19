@@ -15,7 +15,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
     ...,
   } | order(_createdAt desc)`;
 
-  const comments: Comment[] = await client.fetch(commentQuery);
-
-  return NextResponse.json({ comments });
+  try {
+    const comments: Comment[] = await client.fetch(commentQuery);
+    return NextResponse.json({ comments });
+  } catch (error) {
+    console.log(error);
+    throw new Error("Could not get comments for this post.");
+  }
 }

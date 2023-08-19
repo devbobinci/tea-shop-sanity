@@ -1,24 +1,41 @@
+"use client";
+
 import Link from "next/link";
 import { motion as m } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 export function DesktopNavLinks() {
+  const pathname = usePathname();
+
   return (
     <ul className="hidden space-x-6 md:flex">
       <li className="group relative font-semibold uppercase">
         <span className="absolute -bottom-2 left-1/2 inline-block h-[2px] w-0 -translate-x-[50%] rounded-md bg-my-yellow transition-all group-hover:w-full"></span>
-        <Link href="/">Home</Link>
+        <Link href="/">Głowna</Link>
+        {pathname === "/" && (
+          <span className="absolute -bottom-2 left-1/2 inline-block h-[2px] w-full -translate-x-[50%] rounded-md bg-my-yellow transition-all"></span>
+        )}
       </li>
       <li className="group relative font-semibold uppercase">
         <span className="absolute -bottom-2 left-1/2 inline-block h-[2px] w-0 -translate-x-[50%] rounded-md bg-my-yellow transition-all group-hover:w-full"></span>
         <Link href="/product">Produkty</Link>
+        {pathname === "/product" && (
+          <span className="absolute -bottom-2 left-1/2 inline-block h-[2px] w-full -translate-x-[50%] rounded-md bg-my-yellow transition-all"></span>
+        )}
       </li>
       <li className="group relative font-semibold uppercase">
         <span className="absolute -bottom-2 left-1/2 inline-block h-[2px] w-0 -translate-x-[50%] rounded-md bg-my-yellow transition-all group-hover:w-full"></span>
         <Link href="/post">Posty</Link>
+        {pathname === "/post" && (
+          <span className="absolute -bottom-2 left-1/2 inline-block h-[2px] w-full -translate-x-[50%] rounded-md bg-my-yellow transition-all"></span>
+        )}
       </li>
       <li className="group relative font-semibold uppercase">
         <span className="absolute -bottom-2 left-1/2 inline-block h-[2px] w-0 -translate-x-[50%] rounded-md bg-my-yellow transition-all group-hover:w-full"></span>
         <Link href="/przepis">Przepisy</Link>
+        {pathname === "/przepis" && (
+          <span className="absolute -bottom-2 left-1/2 inline-block h-[2px] w-full -translate-x-[50%] rounded-md bg-my-yellow transition-all"></span>
+        )}
       </li>
     </ul>
   );

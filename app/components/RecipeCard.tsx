@@ -35,10 +35,10 @@ export default function RecipeCard({
         </div>
         <div className="flex items-center justify-between rounded-md bg-white p-4">
           <div className="py-2">
-            <h3 className="line-clamp-1 text-base font-bold transition-all group-hover:underline xl:text-xl">
+            <h3 className="line-clamp-1 text-base font-bold transition-all group-hover:underline xl:text-lg">
               {title}
             </h3>
-            <p className="line-clamp-1 text-xs text-my-gray xl:text-base">
+            <p className="line-clamp-1 text-xs text-my-gray xl:text-sm">
               {new Date(_createdAt).toLocaleDateString("en-US", {
                 day: "numeric",
                 month: "long",
